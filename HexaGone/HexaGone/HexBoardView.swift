@@ -5,24 +5,45 @@
 
 import SwiftUI
 
-import SwiftUI
+enum TileMode: Int {
+    case covered = 1
+    case outOfBounds = 2
+    case uncovered = 3
+    case flagged = 4
+}
+
+extension TileMode {
+    func imagePath() -> String {
+        return "tile_\(self.rawValue)"
+    }
+}
 
 struct HexagonView: View {
-    @State var currentImage = "tile_1"
+    @State var state : TileMode = .covered
     var body: some View {
-        Image(currentImage)
+        Image(state.imagePath())
             .resizable()
             .scaledToFit()
             .frame(width: 50, height: 50)
             .onTapGesture {
-                // reveal number or bomb: change image to tile_3 with number or image_2 with bomb
+                // if covered, reveal number or bomb
                 print("reveal")
-                currentImage = "tile_3"
+                if (state == .covered) {
+                    state = .uncovered
+                    // determine number to display
+                }
+                print()
             }
             .onLongPressGesture {
-                // flag: change image to tile_4
+                // long press covered to activate flag
                 print("long press activated")
-                currentImage = "tile_4"
+                if (state == .covered) {
+                    state = .flagged
+                }
+                // long press flagged to deactivate flag
+                else if (state == .flagged) {
+                    state = .covered
+                }
             }
     }
 }
