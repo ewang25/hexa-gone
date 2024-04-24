@@ -13,6 +13,19 @@ struct HexagonView: View {
             .resizable()
             .scaledToFit()
             .frame(width: 50, height: 50)
+            .onTapGesture {
+                // reveal number or bomb: change image to tile_3 with number or image_2 with bomb
+                print("reveal")
+            }
+            .onLongPressGesture(minimumDuration: 0.5, pressing: { inProgress in
+                if inProgress {
+                    print("long press started")
+                } else {
+                    print("long press ended")
+                }}) {
+                // flag
+                print("long press activated")
+            }
     }
 }
 
