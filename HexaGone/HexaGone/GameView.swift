@@ -5,6 +5,8 @@
 
 import SwiftUI
 
+// TODO: Make it so that (1) onAppear, the game board is centered, (2) include a min and max scale setting (3) include boundaries for the offset settings. This will make sure that the user will not accidentally drag the gameboard off-screen.
+
 struct GameView: View {
     @State private var scale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
