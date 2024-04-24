@@ -8,23 +8,21 @@ import SwiftUI
 import SwiftUI
 
 struct HexagonView: View {
+    @State var currentImage = "tile_1"
     var body: some View {
-        Image("tile_1")
+        Image(currentImage)
             .resizable()
             .scaledToFit()
             .frame(width: 50, height: 50)
             .onTapGesture {
                 // reveal number or bomb: change image to tile_3 with number or image_2 with bomb
                 print("reveal")
+                currentImage = "tile_3"
             }
-            .onLongPressGesture(minimumDuration: 0.5, pressing: { inProgress in
-                if inProgress {
-                    print("long press started")
-                } else {
-                    print("long press ended")
-                }}) {
-                // flag
+            .onLongPressGesture {
+                // flag: change image to tile_4
                 print("long press activated")
+                currentImage = "tile_4"
             }
     }
 }
