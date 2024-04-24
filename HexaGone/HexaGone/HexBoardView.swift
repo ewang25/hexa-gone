@@ -41,6 +41,8 @@ struct HexBoardView: View {
     }
 }
 
-#Preview {
-    HexBoardView()
+struct HexBoardView_Previews: PreviewProvider {
+    static var previews: some View {
+        HexBoardView()
+    }
 }
