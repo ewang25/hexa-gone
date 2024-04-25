@@ -84,8 +84,8 @@ let beginnerBoard = BoardConfig(rows: 2*17-1+8, cols: 2*17-1+6, mineCount: 10, m
 
 
 
-func generateBoard(n: Int) -> [[UInt8]] {
-    var newboard = Array(repeating: Array(repeating: UInt8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
+func generateBoard(n: Int) -> [[Int8]] {
+    var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
     //size of board (extra 6 on left-right, extra 8 on top-bottom)
     
     func leftMargin(extraMargin: Int) -> Int {
