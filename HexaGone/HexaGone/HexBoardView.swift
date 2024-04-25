@@ -35,7 +35,6 @@ struct HexagonView: View {
                 .onTapGesture {
                     if (state == .covered) {
                         state = .uncovered
-                        // determine number to display
                         if (isMine) {
                             gameOver()
                         } else if (hintNum == 0) {
@@ -94,7 +93,7 @@ struct HexBoardView: View {
     
     func revealEmptyTiles(i: Int, j: Int) {
         checkSurroundingHexagons(map: boardConfig.mask, i: i, j: j, action: { i2, j2 in
-            if (states[i2][j2] == .covered && boardMap[i2][j2] == 0) {
+            if (states[i2][j2] == .covered && boardMap[i2][j2] > 0) {
                 states[i2][j2] = .uncovered
                 if (boardMap[i2][j2] == 7) {
                     revealEmptyTiles(i: i2, j: j2)
