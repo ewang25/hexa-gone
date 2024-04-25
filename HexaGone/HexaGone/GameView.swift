@@ -93,8 +93,8 @@ struct GameView: View {
         }
         // Custom back button
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
+        .toolbar  {
+            ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
