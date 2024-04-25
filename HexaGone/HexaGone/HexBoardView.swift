@@ -89,6 +89,7 @@ struct HexBoardView: View {
     var gameModel: GameModel
     @Binding var flagCount: Int
     @State var states: [[TileState]]
+    var boardMap: [[Int8]]
     
     func revealEmptyTiles(i: Int, j: Int) {
         checkSurroundingHexagons(map: gameModel.board.mask, i: i, j: j, action: { i2, j2 in
@@ -113,6 +114,17 @@ struct HexBoardView: View {
     
     func countFlags() {
         flagCount = states.flatMap { $0 }.filter { $0 == .flagged }.count
+    }
+    
+    func checkWinCon() -> Bool {
+        for (i, row) in boardMap.enumerated() {
+            for (j, val) in row.enumerated() {
+                if (val > 0 && states[i][j] != .uncovered) {
+                    return false
+                }
+            }
+        }
+        return true
     }
 
     var body: some View {
