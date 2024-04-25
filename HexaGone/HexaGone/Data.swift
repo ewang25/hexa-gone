@@ -79,7 +79,7 @@ let beginnerBoardProto = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask
 //let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: generateBoard(n: 6))
 
 //test
-let beginnerBoard = boardConfig(rows: 2*17-1+8, cols: 2*17-1+6, mineCount: 10, mask: generateBoard(n: 17))
+let beginnerBoard = BoardConfig(rows: 2*17-1+8, cols: 2*17-1+6, mineCount: 10, mask: generateBoard(n: 17))
 
 
 
