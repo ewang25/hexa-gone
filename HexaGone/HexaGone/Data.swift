@@ -47,7 +47,7 @@ struct BoardConfig {
 //    Array(repeating: false, count: 15)
 //])
 
-let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
+let beginnerBoardProto = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -73,6 +73,55 @@ let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
 // -1 is a mine tile
 // 1-6 are all hexagon tiles; each number represents however many mines there are around
 // 7 is a hexagon tile with no neighboring mines
+
+
+
+//let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: generateBoard(n: 6))
+
+//test
+let beginnerBoard = boardConfig(rows: 2*17-1+8, cols: 2*17-1+6, mineCount: 10, mask: generateBoard(n: 17))
+
+
+
+
+func generateBoard(n: Int) -> [[UInt8]] {
+    var newboard = Array(repeating: Array(repeating: UInt8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
+    //size of board (extra 6 on left-right, extra 8 on top-bottom)
+    
+    func leftMargin(extraMargin: Int) -> Int {
+        3 + extraMargin
+    }
+
+    func rightMargin(extraMargin: Int) -> Int {
+        2 * n + 4 - 3 - extraMargin
+    }
+    
+    for i in 4...(2 + 2 * n){
+        //iterate over rows
+        
+        let totalExtraMargin = abs(i-(n+3))
+        
+        if ((n + i) % 2 == 1){
+            for j in leftMargin(extraMargin: totalExtraMargin/2)...rightMargin(extraMargin: totalExtraMargin/2) {
+                newboard[i][j] = 1
+            }
+        }
+        else {
+            if (n % 2 == 0) {
+                for j in leftMargin(extraMargin: (totalExtraMargin+1)/2)...rightMargin(extraMargin: (totalExtraMargin-1)/2) {
+                    newboard[i][j] = 1
+                }
+            }
+            else {
+                for j in leftMargin(extraMargin: (totalExtraMargin-1)/2)...rightMargin(extraMargin: (totalExtraMargin+1)/2) {
+                    newboard[i][j] = 1
+                }
+            }
+        }
+    }
+    return newboard
+}
+
 
 func initializeBoard(boardConfig: boardConfig) -> [[Int8]] {
     // Create a deep copy of the mask
@@ -121,14 +170,6 @@ func initializeBoard(boardConfig: boardConfig) -> [[Int8]] {
     }
     
     return array
-}
-
-func generateBoard(n: Int) -> [[Int8]] {
-    var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
-    
-    
-    
-    return newboard
 }
 
 func checkSurroundingHexagons(map: [[Int8]], i: Int, j: Int, action: (Int, Int) -> Void) {
