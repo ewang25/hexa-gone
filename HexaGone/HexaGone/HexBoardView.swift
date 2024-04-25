@@ -79,26 +79,22 @@ struct HexagonView: View {
 }
 
 struct HexBoardView: View {
-    init(board: boardConfig, flagCount: Binding<Int>) {
+    init(gameModel: GameModel, flagCount: Binding<Int>) {
         self._flagCount = flagCount // Connect binding variables manually
-        self.board = board
-        self.mines = randomlyPlace(in: board.mask, n: board.mineCount)
-        self.hints = getNumberHints(map: board.mask, mines: self.mines)
+        self.gameModel = gameModel
         
-        self.states = Array(repeating: Array(repeating: TileState.outOfBounds, count: board.mask[0].count), count: board.mask.count)
+        self.states = Array(repeating: Array(repeating: TileState.outOfBounds, count: gameModel.board.mask[0].count), count: gameModel.board.mask.count)
     }
     
-    var board: boardConfig
+    var gameModel: GameModel
     @Binding var flagCount: Int
-    var mines: [[UInt8]]
-    var hints: [[UInt8]]
     @State var states: [[TileState]]
     
     func revealEmptyTiles(i: Int, j: Int) {
-        checkSurroundingHexagons(map: board.mask, i: i, j: j, action: { i2, j2 in
-            if (states[i2][j2] == .covered && mines[i2][j2] == 0) {
+        checkSurroundingHexagons(map: gameModel.board.mask, i: i, j: j, action: { i2, j2 in
+            if (states[i2][j2] == .covered && gameModel.mines[i2][j2] == 0) {
                 states[i2][j2] = .uncovered
-                if (hints[i2][j2] == 0) {
+                if (gameModel.hints[i2][j2] == 0) {
                     revealEmptyTiles(i: i2, j: j2)
                 }
             }
@@ -123,16 +119,16 @@ struct HexBoardView: View {
         let hexHeight = HEXRATIO * hexSize
         let hexWidth = hexSize
         return VStack(alignment: .leading, spacing: 0) {
-            ForEach(0..<board.rows, id: \.self) { i in
+            ForEach(0..<gameModel.board.rows, id: \.self) { i in
                 HStack(spacing: 0) {
-                    ForEach(0..<board.cols, id: \.self) { j in
+                    ForEach(0..<gameModel.board.cols, id: \.self) { j in
                         HexagonView(
                             state: $states[i][j],
-                            isMine: mines[i][j] != 0,
-                            hintNum: hints[i][j],
+                            isMine: gameModel.mines[i][j] != 0,
+                            hintNum: gameModel.hints[i][j],
                             gameOver: { print("game over"); revealAllTiles() },
                             foundEmptyTile: { revealEmptyTiles(i: i, j: j) },
-                            countFlags: countFlags
+                            countFlags: countFlags // closure
                         )
                         .frame(width: hexWidth, height: hexHeight)
                         .offset(x: (i % 2 != 0) ? hexWidth / 4 : -hexWidth / 4)
@@ -140,7 +136,7 @@ struct HexBoardView: View {
                 }
             }
         }.onAppear() {
-            for (i, row) in board.mask.enumerated() {
+            for (i, row) in gameModel.board.mask.enumerated() {
                 for (j, value) in row.enumerated() {
                     if value == 1 {
                         self.states[i][j] = TileState.covered
@@ -153,7 +149,7 @@ struct HexBoardView: View {
 
 struct HexBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        HexBoardView(board: beginnerBoard, flagCount: Binding<Int>(
+        HexBoardView(gameModel: GameModel(board: beginnerBoard), flagCount: Binding<Int>(
             get: { return 5 },       // Start with a dummy value
             set: { _ in }            // Do nothing on change
         ))

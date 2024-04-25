@@ -9,17 +9,17 @@ import SwiftUI
 
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
-    let board = beginnerBoard
+    @State var gameModel: GameModel
     
     @State var flagCount = 0
     
     var body: some View {
         ZStack {
             ZoomAndDragView(
-                frameWidth: board.boardWidth(),
-                frameHeight: board.boardHeight(),
+                frameWidth: gameModel.board.boardWidth(),
+                frameHeight: gameModel.board.boardHeight(),
                 content: HexBoardView(
-                    board: beginnerBoard,
+                    gameModel: gameModel,
                     flagCount: $flagCount
                 )
             )
@@ -40,7 +40,7 @@ struct GameView: View {
                                     .scaledToFit()
                                     .frame(width: 24, height: 24)
                             }
-                            Text("\(flagCount)/\(board.mineCount)")
+                            Text("\(flagCount)/\(gameModel.board.mineCount)")
                                 .font(.title)
                         }
                     }
@@ -72,6 +72,6 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(gameModel: GameModel(board: beginnerBoard))
     }
 }

@@ -161,4 +161,17 @@ func getNumberHints(map: [[UInt8]], mines: [[UInt8]]) -> [[UInt8]] {
     return newArray
 }
 
+struct GameModel {
+    
+    init(board: boardConfig) {
+        self.board = board
+        self.mines = randomlyPlace(in: board.mask, n: board.mineCount)
+        self.hints = getNumberHints(map: board.mask, mines: self.mines)
+    }
+    
+    var board: boardConfig
+    var mines: [[UInt8]]
+    var hints: [[UInt8]]
+}
+
 
