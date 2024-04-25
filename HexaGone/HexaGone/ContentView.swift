@@ -18,7 +18,7 @@ struct ContentView: View {
                         .font(.title)
                         .padding()
                     NavigationLink(destination: {
-                        GameView(boardConfig: beginnerBoardProto)
+                        GameView(boardConfig: beginnerBoard)
                     }) {
                         ZStack {
                             Rectangle()
