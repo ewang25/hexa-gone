@@ -10,9 +10,44 @@ import SwiftUI
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     let board = beginnerBoard
+    
+    @State var flagCount = 0
+    
     var body: some View {
-        VStack {
-            ZoomAndDragView(frameWidth: board.boardWidth(), frameHeight: board.boardHeight(), content: HexBoardView(board: beginnerBoard))
+        ZStack {
+            ZoomAndDragView(
+                frameWidth: board.boardWidth(),
+                frameHeight: board.boardHeight(),
+                content: HexBoardView(
+                    board: beginnerBoard,
+                    flagCount: $flagCount
+                )
+            )
+            VStack {
+                HStack {
+                    ZStack {
+                        Rectangle()
+                            .fill(.white)
+                            .cornerRadius(10)
+                            .frame(width: 140, height: 90)
+                            .padding()
+                        VStack (spacing: 5) {
+                            HStack {
+                                Text("Mines:")
+                                    .bold()
+                                Image("flag")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
+                            }
+                            Text("\(flagCount)/\(board.mineCount)")
+                                .font(.title)
+                        }
+                    }
+                    Spacer()
+                }
+                Spacer()
+            }
         }
         // Custom back button.
         .navigationBarBackButtonHidden(true)
