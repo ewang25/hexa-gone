@@ -16,6 +16,7 @@ struct boardConfig {
     var mineCount: Int
     var mask: [[Int8]]
     
+    // helpers for ZoomAndDragView
     func boardWidth() -> CGFloat {
         return hexSize * (CGFloat(cols) + 1.5) // the +1.5 accounts for the alignment/shift factor
     }
@@ -73,17 +74,11 @@ let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
 // 1-6 are all hexagon tiles; each number represents however many mines there are around
 // 7 is a hexagon tile with no neighboring mines
 
-func generateBoard(n: Int) -> [[Int8]] {
-    var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
+func initializeBoard(boardConfig: boardConfig) -> [[Int8]] {
+    // Create a deep copy of the mask
+    var array: [[Int8]] = boardConfig.mask.map { $0.map { $0 } }
     
-    
-    
-    return newboard
-}
-
-
-
-func randomlyPlace(in array: [[Int8]], n: Int) -> [[Int8]] {
+    // Randomly place the mines
     // Collect all the positions of the '1's
     var positionsOfOnes: [(Int, Int)] = []
     for (i, row) in array.enumerated() {
@@ -94,19 +89,46 @@ func randomlyPlace(in array: [[Int8]], n: Int) -> [[Int8]] {
         }
     }
     
-    // Randomly select 'n' positions if 'n' is less than the total number of '1's
-    let numberToKeep = min(n, positionsOfOnes.count)
+    // Randomly select N positions if N is less than the total number of '1's (available tiles)
+    // where N is
+    let numberToKeep = min(boardConfig.mineCount, positionsOfOnes.count)
     let selectedPositions = positionsOfOnes.shuffled().prefix(numberToKeep)
     
-    // Create a new 2D array filled with '0's
-    var newArray = Array(repeating: Array(repeating: Int8(0), count: array[0].count), count: array.count)
-    
-    // Place '1's in the randomly selected positions
+    // And turn these randomly selected positions into mines
     for (i, j) in selectedPositions {
-        newArray[i][j] = 1
+        array[i][j] = -1
     }
     
-    return newArray
+    // Then change the remaining 1s to reflect hint numbers
+    // Helper function:
+    func countSurroundingMines(i: Int, j: Int) -> Int8 {
+        var count: Int8 = 0
+        checkSurroundingHexagons(map: array, i: i, j: j, action: { i, j in
+            if (array[i][j] == -1) {
+                count += 1
+            }
+        })
+        return count
+    }
+    // Replace remaining 1s with appropriate number hints.
+    for (i, row) in array.enumerated() {
+        for (j, value) in row.enumerated() {
+            if value == 1 {
+                var hint = countSurroundingMines(i: i, j: j)
+                array[i][j] = hint == 0 ? 7 : hint
+            }
+        }
+    }
+    
+    return array
+}
+
+func generateBoard(n: Int) -> [[Int8]] {
+    var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
+    
+    
+    
+    return newboard
 }
 
 func checkSurroundingHexagons(map: [[Int8]], i: Int, j: Int, action: (Int, Int) -> Void) {
@@ -152,39 +174,8 @@ func checkSurroundingHexagons(map: [[Int8]], i: Int, j: Int, action: (Int, Int) 
     }
 }
 
-func getNumberHints(map: [[Int8]], mines: [[Int8]]) -> [[Int8]] {
-    
-    func countSurroundingMines(i: Int, j: Int) -> Int8 {
-        var count: Int8 = 0
-        checkSurroundingHexagons(map: map, i: i, j: j, action: { i, j in count += mines[i][j] })
-        return count
-    }
-    
-    var newArray = Array(repeating: Array(repeating: Int8(0), count: map[0].count), count: map.count)
-    for (i, row) in map.enumerated() {
-        for (j, value) in row.enumerated() {
-            // Only bother counting those tiles which are not mines themselves.
-            if (value != 0 && mines[i][j] == 0) {
-                // count surrounding mines
-                newArray[i][j] = countSurroundingMines(i: i, j: j)
-            }
-        }
-    }
-    
-    return newArray
-}
-
 struct GameModel {
-    
-    init(board: boardConfig) {
-        self.board = board
-        self.mines = randomlyPlace(in: board.mask, n: board.mineCount)
-        self.hints = getNumberHints(map: board.mask, mines: self.mines)
-    }
-    
     var board: boardConfig
-    var mines: [[Int8]]
-    var hints: [[Int8]]
 }
 
 
