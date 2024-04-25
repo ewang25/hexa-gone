@@ -82,6 +82,7 @@ struct HexBoardView: View {
     init(gameModel: GameModel, flagCount: Binding<Int>) {
         self._flagCount = flagCount // Connect binding variables manually
         self.gameModel = gameModel
+        self.boardMap = initializeBoard(boardConfig: gameModel.board)
         
         self.states = Array(repeating: Array(repeating: TileState.outOfBounds, count: gameModel.board.mask[0].count), count: gameModel.board.mask.count)
     }
@@ -93,9 +94,9 @@ struct HexBoardView: View {
     
     func revealEmptyTiles(i: Int, j: Int) {
         checkSurroundingHexagons(map: gameModel.board.mask, i: i, j: j, action: { i2, j2 in
-            if (states[i2][j2] == .covered && gameModel.mines[i2][j2] == 0) {
+            if (states[i2][j2] == .covered && boardMap[i2][j2] == 0) {
                 states[i2][j2] = .uncovered
-                if (gameModel.hints[i2][j2] == 0) {
+                if (boardMap[i2][j2] == 7) {
                     revealEmptyTiles(i: i2, j: j2)
                 }
             }
@@ -136,9 +137,9 @@ struct HexBoardView: View {
                     ForEach(0..<gameModel.board.cols, id: \.self) { j in
                         HexagonView(
                             state: $states[i][j],
-                            isMine: gameModel.mines[i][j] != 0,
-                            hintNum: gameModel.hints[i][j],
-                            gameOver: { print("game over"); revealAllTiles() },
+                            isMine: boardMap[i][j] == -1,
+                            hintNum: boardMap[i][j] == 7 ? 0 : max(boardMap[i][j], 0),
+                            gameOver: { revealAllTiles() },
                             foundEmptyTile: { revealEmptyTiles(i: i, j: j) },
                             countFlags: countFlags // closure
                         )

@@ -114,6 +114,6 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(gameModel: GameModel(board: beginnerBoard))
+        GameView(gameModel: GameModel(board: beginnerBoardProto))
     }
 }

@@ -47,7 +47,7 @@ struct BoardConfig {
 //    Array(repeating: false, count: 15)
 //])
 
-let beginnerBoardProto = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
+let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -132,7 +132,7 @@ func generateBoard(n: Int) -> [[Int8]] {
 }
 
 
-func initializeBoard(boardConfig: boardConfig) -> [[Int8]] {
+func initializeBoard(boardConfig: BoardConfig) -> [[Int8]] {
     // Create a deep copy of the mask
     var array: [[Int8]] = boardConfig.mask.map { $0.map { $0 } }
     
@@ -172,7 +172,7 @@ func initializeBoard(boardConfig: boardConfig) -> [[Int8]] {
     for (i, row) in array.enumerated() {
         for (j, value) in row.enumerated() {
             if value == 1 {
-                var hint = countSurroundingMines(i: i, j: j)
+                let hint = countSurroundingMines(i: i, j: j)
                 array[i][j] = hint == 0 ? 7 : hint
             }
         }
@@ -225,7 +225,7 @@ func checkSurroundingHexagons(map: [[Int8]], i: Int, j: Int, action: (Int, Int) 
 }
 
 struct GameModel {
-    var board: boardConfig
+    var board: BoardConfig
 }
 
 
