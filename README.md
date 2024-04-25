@@ -74,3 +74,7 @@ Regular (classic) minesweeper has the following difficulty categories:
 |Expert|30x16|480|100|20.833%|
 
 We can use these as starting references for our version of HexaGone.
+
+|Name|Side Length|Size|Mines|Density|
+|:-:|:-:|:-:|:-:|:-:|
+|Beginner|n=6|91|10|10.989%|
