@@ -18,14 +18,40 @@ struct ContentView: View {
                         .font(.title)
                         .padding()
                     NavigationLink(destination: {
-                        GameView(boardConfig: beginnerBoard)
+                        GameView(boardConfig: noviceBoard)
                     }) {
                         ZStack {
                             Rectangle()
                                 .fill(.black)
                                 .cornerRadius(10)
                                 .frame(width: 200, height: 100)
-                            Text("Play")
+                            Text("Novice")
+                                .foregroundColor(.white)
+                                .font(.title)
+                        }
+                    }
+                    NavigationLink(destination: {
+                        GameView(boardConfig: intermediateBoard)
+                    }) {
+                        ZStack {
+                            Rectangle()
+                                .fill(.black)
+                                .cornerRadius(10)
+                                .frame(width: 200, height: 100)
+                            Text("Intermediate")
+                                .foregroundColor(.white)
+                                .font(.title)
+                        }
+                    }
+                    NavigationLink(destination: {
+                        GameView(boardConfig: advancedBoard)
+                    }) {
+                        ZStack {
+                            Rectangle()
+                                .fill(.black)
+                                .cornerRadius(10)
+                                .frame(width: 200, height: 100)
+                            Text("Advanced")
                                 .foregroundColor(.white)
                                 .font(.title)
                         }
