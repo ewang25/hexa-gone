@@ -70,6 +70,16 @@ let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
 
 
 
+func generateBoard(n: Int) -> [[UInt8]] {
+    var newboard = Array(repeating: Array(repeating: UInt8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
+    
+    
+    
+    return newboard
+}
+
+
+
 func randomlyPlace(in array: [[UInt8]], n: Int) -> [[UInt8]] {
     // Collect all the positions of the '1's
     var positionsOfOnes: [(Int, Int)] = []
