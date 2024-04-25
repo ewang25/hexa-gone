@@ -48,7 +48,7 @@ struct BoardConfig {
 //])
 
 //prototype and visualization of a Beginner board
-let beginnerBoardProto = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
+let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -78,6 +78,7 @@ let beginnerBoardProto = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask
 
 
 //let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: generateBoard(n: 6))
+
 
 //function for the number of rows in the board based on size of map
 func columnsInBoard(n: Int) -> Int {
