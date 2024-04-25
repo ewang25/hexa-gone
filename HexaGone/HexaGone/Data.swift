@@ -78,8 +78,17 @@ let beginnerBoardProto = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask
 
 //let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: generateBoard(n: 6))
 
+func rowsInBoard(n: Int) -> Int {
+    return 2 * n - 1 + 6
+}
+
+func columnsInBoard(n: Int) -> Int {
+    return 2 * n - 1 + 8
+}
+
+
 //test
-let beginnerBoard = BoardConfig(rows: 2*17-1+8, cols: 2*17-1+6, mineCount: 10, mask: generateBoard(n: 17))
+let beginnerBoard = BoardConfig(rows: rowsInBoard(n: 17), cols: columnsInBoard(n: 17), mineCount: 10, mask: generateBoard(n: 17))
 
 
 
