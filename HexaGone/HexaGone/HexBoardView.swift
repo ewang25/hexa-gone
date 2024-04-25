@@ -19,13 +19,13 @@ extension TileMode {
 }
 
 struct HexagonView: View {
-    @State var state : TileMode = .covered
+    @State var state: TileMode
     var isBomb: Bool = false //comment out later - will need to initialize later on
     var body: some View {
         Image(state.imagePath())
             .resizable()
             .scaledToFit()
-            .frame(width: 50, height: 50)
+            .frame(width: 100, height: 100)
             .onTapGesture {
                 if (state == .covered) {
                     state = .uncovered
@@ -55,25 +55,24 @@ struct HexagonView: View {
 }
 
 struct HexBoardView: View {
-    var cols = 9
-    var rows = 9
-    let hexSize: CGFloat = 45 // mess around with this
+    var board: boardConfig
+    
+    // Horizontal size of the "box" containing each HexagonView.
+    let hexSize: CGFloat = 90 // mess around with this
 
     var body: some View {
         let hexHeight = sqrt(3.0) / 2 * hexSize
         let hexWidth = hexSize
-        return GeometryReader { geometry in
-            VStack(spacing: 0) {
-                ForEach(0..<rows, id: \.self) { row in
-                    HStack(spacing: 0) {
-                        ForEach(0..<cols, id: \.self) { col in
-                            HexagonView()
-                                .frame(width: hexWidth, height: hexHeight)
-                                .offset(x: (row % 2 != 0) ? hexWidth / 2 : 0)
-                        }
+        return VStack(alignment: .leading, spacing: 0) {
+            ForEach(0..<board.rows, id: \.self) { row in
+                HStack(spacing: 0) {
+                    ForEach(0..<board.cols, id: \.self) { col in
+                        HexagonView(state: board.mask[row][col] ? .covered : .outOfBounds)
+                            .frame(width: hexWidth, height: hexHeight)
+                            .offset(x: (row % 2 != 0) ? hexWidth / 4 : -hexWidth / 4)
                     }
-                    .offset(y: row % 2 == 0 ? -hexHeight / 4 : -hexHeight / 4)
                 }
+//                .offset(y: -hexHeight / 4)
             }
         }
     }
@@ -81,6 +80,6 @@ struct HexBoardView: View {
 
 struct HexBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        HexBoardView()
+        HexBoardView(board: beginnerBoard)
     }
 }
