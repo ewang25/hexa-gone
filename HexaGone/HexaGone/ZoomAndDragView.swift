@@ -59,7 +59,7 @@ struct ZoomAndDragView<Content: View>: View {
 
     private func limitDrag(value: CGSize, scale: CGFloat) -> CGSize {
         let maxX = max(frameWidth * scale - screenWidth - 2 * hexSize * scale, 0) / 2
-        let maxY = max(frameHeight * scale - screenHeight - 1.5 * hexSize * sqrt(3.0)/2 * scale, 0) / 2
+        let maxY = max(frameHeight * scale - screenHeight - 2 * hexSize * HEXRATIO * scale, 0) / 2
         return CGSize(width: min(max(value.width, -maxX), maxX),
                       height: min(max(value.height, -maxY), maxY))
     }
@@ -81,7 +81,7 @@ struct ZoomAndDragView<Content: View>: View {
                         // This works because the user could not finish performing a Zoom/Drag gesture before the screen finishes loading.
                         screenWidth = geometry.size.width
                         screenHeight = geometry.size.height
-                        minZoom = max(minZoom, max(screenWidth/frameWidth, (screenHeight * 1.1)/frameHeight))
+                        minZoom = max(minZoom, max(screenWidth/frameWidth, (screenHeight * 1.15)/frameHeight))
                     }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
