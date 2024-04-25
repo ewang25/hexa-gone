@@ -47,7 +47,8 @@ struct BoardConfig {
 //    Array(repeating: false, count: 15)
 //])
 
-let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
+//prototype and visualization of a Beginner board
+let beginnerBoardProto = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -78,35 +79,38 @@ let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask
 
 //let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: generateBoard(n: 6))
 
+//function for the number of rows in the board based on size of map
 func rowsInBoard(n: Int) -> Int {
     return 2 * n - 1 + 6
 }
 
+//function for the number of columns in the board based on size of map
 func columnsInBoard(n: Int) -> Int {
     return 2 * n - 1 + 8
 }
 
-
-//test
+//test the board
 let beginnerBoard = BoardConfig(rows: rowsInBoard(n: 17), cols: columnsInBoard(n: 17), mineCount: 10, mask: generateBoard(n: 17))
 
 
 
-
+//function to generate a board given the size of the map
 func generateBoard(n: Int) -> [[Int8]] {
+    //size of board (extra 3 cells on left/right, extra 4 on top/bottom)
     var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
-    //size of board (extra 6 on left-right, extra 8 on top-bottom)
-    
+     
+    //function to determine number of zeros on left of row
     func leftMargin(extraMargin: Int) -> Int {
         3 + extraMargin
     }
 
+    //function for number of zeros in right of row
     func rightMargin(extraMargin: Int) -> Int {
         2 * n + 4 - 3 - extraMargin
     }
     
+    //iterate over rows
     for i in 4...(2 + 2 * n){
-        //iterate over rows
         
         let totalExtraMargin = abs(i-(n+3))
         
