@@ -14,7 +14,7 @@ struct boardConfig {
     var rows: Int
     var cols: Int
     var mineCount: Int
-    var mask: [[UInt8]]
+    var mask: [[Int8]]
     
     func boardWidth() -> CGFloat {
         return hexSize * (CGFloat(cols) + 1.5) // the +1.5 accounts for the alignment/shift factor
@@ -70,8 +70,8 @@ let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
 
 
 
-func generateBoard(n: Int) -> [[UInt8]] {
-    var newboard = Array(repeating: Array(repeating: UInt8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
+func generateBoard(n: Int) -> [[Int8]] {
+    var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
     
     
     
@@ -80,7 +80,7 @@ func generateBoard(n: Int) -> [[UInt8]] {
 
 
 
-func randomlyPlace(in array: [[UInt8]], n: Int) -> [[UInt8]] {
+func randomlyPlace(in array: [[Int8]], n: Int) -> [[Int8]] {
     // Collect all the positions of the '1's
     var positionsOfOnes: [(Int, Int)] = []
     for (i, row) in array.enumerated() {
@@ -96,7 +96,7 @@ func randomlyPlace(in array: [[UInt8]], n: Int) -> [[UInt8]] {
     let selectedPositions = positionsOfOnes.shuffled().prefix(numberToKeep)
     
     // Create a new 2D array filled with '0's
-    var newArray = Array(repeating: Array(repeating: UInt8(0), count: array[0].count), count: array.count)
+    var newArray = Array(repeating: Array(repeating: Int8(0), count: array[0].count), count: array.count)
     
     // Place '1's in the randomly selected positions
     for (i, j) in selectedPositions {
@@ -106,7 +106,7 @@ func randomlyPlace(in array: [[UInt8]], n: Int) -> [[UInt8]] {
     return newArray
 }
 
-func checkSurroundingHexagons(map: [[UInt8]], i: Int, j: Int, action: (Int, Int) -> Void) {
+func checkSurroundingHexagons(map: [[Int8]], i: Int, j: Int, action: (Int, Int) -> Void) {
     // Useful definitions
     let i_max = map.count - 1
     let j_max = map[0].count - 1
@@ -149,15 +149,15 @@ func checkSurroundingHexagons(map: [[UInt8]], i: Int, j: Int, action: (Int, Int)
     }
 }
 
-func getNumberHints(map: [[UInt8]], mines: [[UInt8]]) -> [[UInt8]] {
+func getNumberHints(map: [[Int8]], mines: [[Int8]]) -> [[Int8]] {
     
-    func countSurroundingMines(i: Int, j: Int) -> UInt8 {
-        var count: UInt8 = 0
+    func countSurroundingMines(i: Int, j: Int) -> Int8 {
+        var count: Int8 = 0
         checkSurroundingHexagons(map: map, i: i, j: j, action: { i, j in count += mines[i][j] })
         return count
     }
     
-    var newArray = Array(repeating: Array(repeating: UInt8(0), count: map[0].count), count: map.count)
+    var newArray = Array(repeating: Array(repeating: Int8(0), count: map[0].count), count: map.count)
     for (i, row) in map.enumerated() {
         for (j, value) in row.enumerated() {
             // Only bother counting those tiles which are not mines themselves.
@@ -180,8 +180,8 @@ struct GameModel {
     }
     
     var board: boardConfig
-    var mines: [[UInt8]]
-    var hints: [[UInt8]]
+    var mines: [[Int8]]
+    var hints: [[Int8]]
 }
 
 

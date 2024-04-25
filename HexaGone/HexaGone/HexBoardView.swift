@@ -21,7 +21,7 @@ extension TileState {
 struct HexagonView: View {
     @Binding var state: TileState
     var isMine: Bool
-    var hintNum: UInt8 // The number hint that denotes the number of surrounding mines
+    var hintNum: Int8 // The number hint that denotes the number of surrounding mines
     var gameOver: () -> Void
     var foundEmptyTile: () -> Void
     var countFlags: () -> Void
