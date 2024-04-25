@@ -68,7 +68,10 @@ let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 ])
 
-
+// 0 represents an out-of-bounds tile
+// -1 is a mine tile
+// 1-6 are all hexagon tiles; each number represents however many mines there are around
+// 7 is a hexagon tile with no neighboring mines
 
 func generateBoard(n: Int) -> [[Int8]] {
     var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
