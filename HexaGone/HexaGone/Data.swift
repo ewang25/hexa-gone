@@ -10,7 +10,7 @@ let HEXRATIO: CGFloat = sqrt(3.0)/2
 
 // for masks, every second row (%2==1) is shifted towards the right.
 
-struct boardConfig {
+struct BoardConfig {
     var rows: Int
     var cols: Int
     var mineCount: Int
@@ -176,13 +176,13 @@ func getNumberHints(map: [[Int8]], mines: [[Int8]]) -> [[Int8]] {
 
 struct GameModel {
     
-    init(board: boardConfig) {
+    init(board: BoardConfig) {
         self.board = board
         self.mines = randomlyPlace(in: board.mask, n: board.mineCount)
         self.hints = getNumberHints(map: board.mask, mines: self.mines)
     }
     
-    var board: boardConfig
+    var board: BoardConfig
     var mines: [[Int8]]
     var hints: [[Int8]]
 }
