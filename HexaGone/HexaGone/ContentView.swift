@@ -5,12 +5,34 @@
 
 import SwiftUI
 
+// Prototype Title Screen. Change & style as needed.
+
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("Test")
+        NavigationView {
+            ZStack {
+                Color.gray
+                    .ignoresSafeArea(.all)
+                VStack {
+                    Text("HexaGone Prototype")
+                        .font(.title)
+                        .padding()
+                    NavigationLink(destination: {
+                        GameView()
+                    }) {
+                        ZStack {
+                            Rectangle()
+                                .fill(.black)
+                                .cornerRadius(10)
+                                .frame(width: 200, height: 100)
+                            Text("Play")
+                                .foregroundColor(.white)
+                                .font(.title)
+                        }
+                    }
+                }
+            }
         }
-        .padding()
     }
 }
 
