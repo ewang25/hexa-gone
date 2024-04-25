@@ -8,51 +8,30 @@ import SwiftUI
 // TODO: Make it so that (1) onAppear, the game board is centered, (2) include a min and max scale setting (3) include boundaries for the offset settings. This will make sure that the user will not accidentally drag the gameboard off-screen.
 
 struct GameView: View {
-    @State private var scale: CGFloat = 1.0
-    @State private var offset: CGSize = .zero
-    @GestureState private var zoomScale: CGFloat = 1.0
-    @GestureState private var dragOffset: CGSize = .zero
-
-    var zoomAndDrag: some Gesture {
-        SimultaneousGesture(
-            MagnificationGesture()
-                .updating($zoomScale) { value, state, _ in
-                    state = value
-                }
-                .onEnded { value in
-                    self.scale *= value
-                },
-            DragGesture()
-                .updating($dragOffset) { value, state, _ in
-                    state = value.translation
-                }
-                .onEnded { value in
-                    self.offset = CGSize(width: self.offset.width + value.translation.width,
-                                         height: self.offset.height + value.translation.height)
-                }
-        )
-    }
-    
+    @Environment(\.presentationMode) var presentationMode
+    let board = beginnerBoard
     var body: some View {
         VStack {
-            Text("Zoom and drag the game board")
-                .padding()
-            
-            GeometryReader { geometry in
-                self.gameBoard
-                    .frame(width: 300, height: 300)
-                    .background(Color.blue)
-                    .clipShape(Rectangle())
-                    .scaleEffect(scale * zoomScale)
-                    .offset(x: offset.width + dragOffset.width, y: offset.height + dragOffset.height)
-                    .gesture(self.zoomAndDrag)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ZoomAndDragView(frameWidth: board.boardWidth(), frameHeight: board.boardHeight(), content: HexBoardView(board: beginnerBoard))
         }
-    }
-    
-    var gameBoard: some View {
-        Text("Testing Here") // Placeholder for the game board
+        // Custom back button.
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    ZStack {
+                        Rectangle()
+                            .fill(.white)
+                            .cornerRadius(5)
+                            .frame(width: 45, height: 45)
+                        Image(systemName: "arrow.left.circle")
+                    }
+                }
+            }
+        }
+        
     }
 }
 
