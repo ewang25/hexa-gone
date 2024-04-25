@@ -79,21 +79,21 @@ struct HexagonView: View {
 }
 
 struct HexBoardView: View {
-    init(gameModel: GameModel, flagCount: Binding<Int>) {
+    init(boardConfig: BoardConfig, flagCount: Binding<Int>) {
         self._flagCount = flagCount // Connect binding variables manually
-        self.gameModel = gameModel
-        self.boardMap = initializeBoard(boardConfig: gameModel.board)
+        self.boardConfig = boardConfig
+        self.boardMap = initializeBoard(boardConfig: boardConfig)
         
-        self.states = Array(repeating: Array(repeating: TileState.outOfBounds, count: gameModel.board.mask[0].count), count: gameModel.board.mask.count)
+        self.states = Array(repeating: Array(repeating: TileState.outOfBounds, count: boardConfig.mask[0].count), count: boardConfig.mask.count)
     }
     
-    var gameModel: GameModel
+    var boardConfig: BoardConfig
     @Binding var flagCount: Int
     @State var states: [[TileState]]
     var boardMap: [[Int8]]
     
     func revealEmptyTiles(i: Int, j: Int) {
-        checkSurroundingHexagons(map: gameModel.board.mask, i: i, j: j, action: { i2, j2 in
+        checkSurroundingHexagons(map: boardConfig.mask, i: i, j: j, action: { i2, j2 in
             if (states[i2][j2] == .covered && boardMap[i2][j2] == 0) {
                 states[i2][j2] = .uncovered
                 if (boardMap[i2][j2] == 7) {
@@ -132,9 +132,9 @@ struct HexBoardView: View {
         let hexHeight = HEXRATIO * hexSize
         let hexWidth = hexSize
         return VStack(alignment: .leading, spacing: 0) {
-            ForEach(0..<gameModel.board.rows, id: \.self) { i in
+            ForEach(0..<boardConfig.rows, id: \.self) { i in
                 HStack(spacing: 0) {
-                    ForEach(0..<gameModel.board.cols, id: \.self) { j in
+                    ForEach(0..<boardConfig.cols, id: \.self) { j in
                         HexagonView(
                             state: $states[i][j],
                             isMine: boardMap[i][j] == -1,
@@ -149,7 +149,7 @@ struct HexBoardView: View {
                 }
             }
         }.onAppear() {
-            for (i, row) in gameModel.board.mask.enumerated() {
+            for (i, row) in boardConfig.mask.enumerated() {
                 for (j, value) in row.enumerated() {
                     if value == 1 {
                         self.states[i][j] = TileState.covered
@@ -162,7 +162,7 @@ struct HexBoardView: View {
 
 struct HexBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        HexBoardView(gameModel: GameModel(board: beginnerBoard), flagCount: Binding<Int>(
+        HexBoardView(boardConfig: beginnerBoardProto, flagCount: Binding<Int>(
             get: { return 5 },       // Start with a dummy value
             set: { _ in }            // Do nothing on change
         ))

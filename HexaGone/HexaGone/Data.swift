@@ -227,9 +227,3 @@ func checkSurroundingHexagons(map: [[Int8]], i: Int, j: Int, action: (Int, Int) 
         }
     }
 }
-
-struct GameModel {
-    var board: BoardConfig
-}
-
-
