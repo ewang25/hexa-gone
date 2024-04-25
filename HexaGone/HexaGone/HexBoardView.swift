@@ -20,23 +20,29 @@ extension TileMode {
 
 struct HexagonView: View {
     @State var state : TileMode = .covered
+    var isBomb: Bool = false //comment out later - will need to initialize later on
     var body: some View {
         Image(state.imagePath())
             .resizable()
             .scaledToFit()
             .frame(width: 50, height: 50)
             .onTapGesture {
-                // if covered, reveal number or bomb
-                print("reveal")
                 if (state == .covered) {
                     state = .uncovered
                     // determine number to display
+                    if (isBomb == true) {
+                        print("game over")
+                        //end game
+                    } else {
+                        print("number of bombs in vicinity")
+                        //display number
+                    }
                 }
                 print()
             }
             .onLongPressGesture {
                 // long press covered to activate flag
-                print("long press activated")
+                print("flagged")
                 if (state == .covered) {
                     state = .flagged
                 }
