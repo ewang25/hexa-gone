@@ -98,20 +98,20 @@ let noviceBoard = BoardConfig(rows: boardPadding(n: 5, k: 4), cols: boardPadding
 //function to generate a board given the size of the map(n) with horizontal bounds(h) and vertical bounds(v)
 func generateBoard(n: Int, h: Int, v: Int) -> [[Int8]] {
     //size of board (extra 3 cells on left/right, extra 4 on top/bottom)
-    var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
+    var newboard = Array(repeating: Array(repeating: Int8(0), count: boardPadding(n: n, k: h)), count: boardPadding(n: n, k: v))
      
     //function to determine number of zeros on left of row
     func leftMargin(extraMargin: Int) -> Int {
-        3 + extraMargin
+        h + extraMargin
     }
 
     //function for number of zeros in right of row
     func rightMargin(extraMargin: Int) -> Int {
-        2 * n + 4 - 3 - extraMargin
+        newboard[0].count - 1 - h - extraMargin
     }
     
     //iterate over rows
-    for i in 4...(2 + 2 * n){
+    for i in v...(newboard.count - 1 - v){
         
         let totalExtraMargin = abs(i-(n+3))
         
