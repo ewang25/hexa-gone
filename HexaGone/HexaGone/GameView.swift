@@ -15,6 +15,22 @@ struct GameView: View {
     }
     
     @StateObject var model: GameViewModel
+    @State var winCon = false
+    
+    func checkCondition() {
+            // Simulate a condition being monitored
+            DispatchQueue.global().async {
+                while !winCon {
+                    if model.checkWin() {
+                        // Activate the navigation
+                        DispatchQueue.main.async {
+                            winCon = true
+                        }
+                    }
+                    Thread.sleep(forTimeInterval: 1)
+                }
+            }
+        }
     
     var body: some View {
         ZStack {
@@ -80,7 +96,11 @@ struct GameView: View {
                 }
             }
         }
-        
+        .onAppear{
+            checkCondition()
+        }
+        .background(
+            NavigationLink(destination: Text("temp"), isActive: $winCon) {EmptyView()})
     }
 }
 

@@ -17,9 +17,7 @@ struct ContentView: View {
                     Text("HexaGone Prototype")
                         .font(.title)
                         .padding()
-                    NavigationLink(destination: {
-                        GameView(boardConfig: noviceBoard)
-                    }) {
+                    NavigationLink(destination: {GameView(boardConfig: noviceBoard)}) {
                         ZStack {
                             Rectangle()
                                 .fill(.black)
