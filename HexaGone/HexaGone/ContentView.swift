@@ -13,8 +13,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray
-                    .ignoresSafeArea(.all)
+                TitleScreenBackgroundView()
                 VStack {
                     Text("HexaGone Prototype")
                         .font(.title)

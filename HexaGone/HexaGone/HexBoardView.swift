@@ -18,6 +18,37 @@ extension TileState {
     }
 }
 
+struct SimpleHexagonView: View {
+    @Binding var state: TileState
+    var isMine: Bool
+    var hintNum: Int8 // The number hint that denotes the number of surrounding mines
+    
+    var body: some View {
+        ZStack {
+            Image(state.imagePath())
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+            
+            if (state == .uncovered) {
+                if (isMine) {
+                    Image("mine")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                } else {
+                    if (hintNum != 0) {
+                        Image("num_\(hintNum)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                    }
+                }
+            }
+        }
+    }
+}
+
 struct HexagonView: View {
     @Binding var state: TileState
     var isMine: Bool
@@ -66,28 +97,7 @@ struct HexagonView: View {
         }
     
     var body: some View {
-        ZStack {
-            Image(state.imagePath())
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-            
-            if (state == .uncovered) {
-                if (isMine) {
-                    Image("mine")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                } else {
-                    if (hintNum != 0) {
-                        Image("num_\(hintNum)")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                    }
-                }
-            }
-        }.gesture(tapAndLongPressGesture)
+        SimpleHexagonView(state: $state, isMine: isMine, hintNum: hintNum).gesture(tapAndLongPressGesture)
     }
 }
 
