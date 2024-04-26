@@ -7,6 +7,8 @@ import SwiftUI
 
 // Prototype Title Screen. Change & style as needed.
 
+// Homescreen Idea: Scrolling game baord that gets constantly regenerated (like the accidental updating, but intentional this time)
+
 struct ContentView: View {
     var body: some View {
         NavigationView {

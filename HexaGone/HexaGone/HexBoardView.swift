@@ -22,9 +22,54 @@ struct HexagonView: View {
     @Binding var state: TileState
     var isMine: Bool
     var hintNum: Int8 // The number hint that denotes the number of surrounding mines
-    var gameOver: () -> Void
-    var foundEmptyTile: () -> Void
-    var countFlags: () -> Void
+    var revealTile: () -> Void
+    var updateFlagCount: () -> Void
+    var autoRevealCheck: () -> Void
+    
+    @State private var longPressTriggered = false
+    
+    private func handleTap() {
+        if state == .uncovered {
+            // Auto-Reveal feature
+            // Description: Clicking on hint number with the correct amount of surrounding mines (regardless of whether the flags are correctly placed) will cause all remaining surrounding covered tiles to be revealed.
+            autoRevealCheck()
+        } else if state == .covered {
+            revealTile()
+        }
+    }
+    
+    private func handleLongPress() {
+        longPressTriggered = true
+        // perform the long press action immediately
+        if state == .covered {
+            state = .flagged
+            updateFlagCount()
+        } else if state == .flagged {
+            state = .covered
+            updateFlagCount()
+        }
+        
+        // Reset the flag after a delay, to ensure taps are not processed
+        // 0.35 was found to be the best delay on the simulator (for long press minimum duration = 0.3)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            longPressTriggered = false
+        }
+    }
+    
+    var tapAndLongPressGesture: some Gesture {
+            let longPress = LongPressGesture(minimumDuration: 0.3)
+                .onEnded { _ in
+                    handleLongPress()
+                }
+            let tap = TapGesture()
+                .onEnded {
+                    if !longPressTriggered {
+                        handleTap()
+                    }
+                }
+
+            return SimultaneousGesture(tap, longPress)
+        }
     
     var body: some View {
         ZStack {
@@ -32,31 +77,6 @@ struct HexagonView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
-                .onTapGesture {
-                    if (state == .covered) {
-                        state = .uncovered
-                        if (isMine) {
-                            gameOver()
-                        } else if (hintNum == 0) {
-                            foundEmptyTile()
-                        }
-                    }
-                }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.5)
-                        .onEnded { _ in
-                            // long press covered to activate flag
-                            if (state == .covered) {
-                                state = .flagged
-                                countFlags()
-                            }
-                            // long press flagged to deactivate flag
-                            else if (state == .flagged) {
-                                state = .covered
-                                countFlags()
-                            }
-                        }
-                )
             
             if (state == .uncovered) {
                 if (isMine) {
@@ -73,7 +93,7 @@ struct HexagonView: View {
                     }
                 }
             }
-        }
+        }.gesture(tapAndLongPressGesture)
     }
 }
 
@@ -93,9 +113,9 @@ struct HexBoardView: View {
                             state: $model.tileStates[i][j],
                             isMine: model.boardMap[i][j] == -1,
                             hintNum: model.boardMap[i][j] == 7 ? 0 : max(model.boardMap[i][j], 0),
-                            gameOver: { model.revealAllTiles() },
-                            foundEmptyTile: { model.revealEmptyTiles(i, j) },
-                            countFlags: model.countFlags // closure
+                            revealTile: { model.revealAt(i, j) },
+                            updateFlagCount: model.countFlags, // closure
+                            autoRevealCheck: { model.ifValidAutoRevealAt(i, j) }
                         )
                         .frame(width: hexWidth, height: hexHeight)
                         .offset(x: (i % 2 != 0) ? hexWidth / 4 : -hexWidth / 4)
