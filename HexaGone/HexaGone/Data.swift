@@ -97,30 +97,33 @@ let noviceBoard = BoardConfig(rows: boardPadding(n: 5, k: 4), cols: boardPadding
 
 //function to generate a board given the size of the map(n) with horizontal bounds(h) and vertical bounds(v)
 func generateBoard(n: Int, h: Int, v: Int) -> [[Int8]] {
-    //size of board (extra 3 cells on left/right, extra 4 on top/bottom)
+    //size of board (extra h cells on left/right, extra v on top/bottom)
     var newboard = Array(repeating: Array(repeating: Int8(0), count: boardPadding(n: n, k: h)), count: boardPadding(n: n, k: v))
      
-    //function to determine the first 1 in the row
+    //function to determine the first 1 in a row
     func leftMargin(extraMargin: Int) -> Int {
         h + extraMargin
     }
 
-    //function to determine the last 1 in the row
+    //function to determine the last 1 in a row
     func rightMargin(extraMargin: Int) -> Int {
         newboard[0].count - 1 - h - extraMargin
     }
     
-    //iterate over rows
+    //iterate over rows (ignoring top/bottom padding)
     for i in v...(newboard.count - 1 - v){
         
+        //the total "extra margin" for each row
         let totalExtraMargin = abs(i - (n + v - 1))
         
+        //casework by parity to generate each row
         if ((n + i + v) % 2 == 1){
             for j in leftMargin(extraMargin: totalExtraMargin/2)...rightMargin(extraMargin: totalExtraMargin/2) {
                 newboard[i][j] = 1
             }
         }
         else {
+            //two different cases for where to place extra margin if total extra margin is odd
             if ((n+v) % 2 == 0) {
                 for j in leftMargin(extraMargin: (totalExtraMargin+1)/2)...rightMargin(extraMargin: (totalExtraMargin-1)/2) {
                     newboard[i][j] = 1
