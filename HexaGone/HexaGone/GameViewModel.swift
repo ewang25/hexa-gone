@@ -52,6 +52,9 @@ class GameViewModel: ObservableObject {
                 if (val > 0 && tileStates[i][j] != .uncovered) {
                     return false
                 }
+                if (val < 0 && tileStates[i][j] == .uncovered) {
+                    return false
+                }
             }
         }
         return true

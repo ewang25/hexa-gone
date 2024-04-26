@@ -100,7 +100,10 @@ struct GameView: View {
             checkCondition()
         }
         .background(
-            NavigationLink(destination: Text("temp"), isActive: $winCon) {EmptyView()})
+            NavigationLink(destination: Text("temp"), isActive: $winCon) {
+                EmptyView()
+            }
+        ) //eventually change Text("temp") to win screen
     }
 }
 
