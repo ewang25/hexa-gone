@@ -83,12 +83,13 @@ class GameViewModel: ObservableObject {
             }
         }
         return false
+    }
 
     // Count flags for auto-reveal
     func countSurroundingFlags(_ i: Int, _ j: Int) -> Int {
         var count = 0
-        check(i, j, { i, j in
-            if tileStates[i][j] == .flagged {
+        check(i, j, { i2, j2 in
+            if tileStates[i2][j2] == .flagged {
                 count += 1
             }
         })
