@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E6378D32BDA1478008783AF /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6378D22BDA1478008783AF /* mine.png */; };
 		2E6378D52BDA1C40008783AF /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6378D42BDA1C40008783AF /* flag.png */; };
+		2E6CF8B12BDB18EC00BF0053 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6CF8B02BDB18EC00BF0053 /* GameViewModel.swift */; };
 		2E800B3A2BD820FF003A7643 /* HexaGoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E800B392BD820FF003A7643 /* HexaGoneApp.swift */; };
 		2E800B3C2BD820FF003A7643 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E800B3B2BD820FF003A7643 /* ContentView.swift */; };
 		2E800B3E2BD82100003A7643 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E800B3D2BD82100003A7643 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		2E6378D22BDA1478008783AF /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mine.png; sourceTree = "<group>"; };
 		2E6378D42BDA1C40008783AF /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
+		2E6CF8B02BDB18EC00BF0053 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		2E800B362BD820FF003A7643 /* HexaGone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HexaGone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E800B392BD820FF003A7643 /* HexaGoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexaGoneApp.swift; sourceTree = "<group>"; };
 		2E800B3B2BD820FF003A7643 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				2E800B392BD820FF003A7643 /* HexaGoneApp.swift */,
 				2E800B3B2BD820FF003A7643 /* ContentView.swift */,
 				2E800B472BD82854003A7643 /* GameView.swift */,
+				2E6CF8B02BDB18EC00BF0053 /* GameViewModel.swift */,
 				2E800B7C2BD9E7FB003A7643 /* ZoomAndDragView.swift */,
 				2E800B492BD82C7A003A7643 /* HexBoardView.swift */,
 				2E800B3D2BD82100003A7643 /* Assets.xcassets */,
@@ -211,6 +214,7 @@
 				2E800B7D2BD9E7FB003A7643 /* ZoomAndDragView.swift in Sources */,
 				2E800B482BD82854003A7643 /* GameView.swift in Sources */,
 				2E800B3A2BD820FF003A7643 /* HexaGoneApp.swift in Sources */,
+				2E6CF8B12BDB18EC00BF0053 /* GameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

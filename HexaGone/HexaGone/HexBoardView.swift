@@ -78,80 +78,25 @@ struct HexagonView: View {
 }
 
 struct HexBoardView: View {
-    init(boardConfig: BoardConfig, flagCount: Binding<Int>) {
-        self._flagCount = flagCount // Connect binding variables manually
-        self.boardConfig = boardConfig
-        self.boardMap = initializeBoard(boardConfig: boardConfig)
-        
-        self.states = Array(repeating: Array(repeating: TileState.outOfBounds, count: boardConfig.mask[0].count), count: boardConfig.mask.count)
-    }
-    
-    var boardConfig: BoardConfig
-    @Binding var flagCount: Int
-    @State var states: [[TileState]]
-    var boardMap: [[Int8]]
-    
-    func revealEmptyTiles(i: Int, j: Int) {
-        checkSurroundingHexagons(map: boardConfig.mask, i: i, j: j, action: { i2, j2 in
-            if (states[i2][j2] == .covered && boardMap[i2][j2] > 0) {
-                states[i2][j2] = .uncovered
-                if (boardMap[i2][j2] == 7) {
-                    revealEmptyTiles(i: i2, j: j2)
-                }
-            }
-        })
-    }
-    
-    func revealAllTiles() {
-        for (i, row) in states.enumerated() {
-            for (j, value) in row.enumerated() {
-                if (value != .outOfBounds) {
-                    states[i][j] = .uncovered
-                }
-            }
-        }
-    }
-    
-    func countFlags() {
-        flagCount = states.flatMap { $0 }.filter { $0 == .flagged }.count
-    }
-    
-    func checkWinCon() -> Bool {
-        for (i, row) in boardMap.enumerated() {
-            for (j, val) in row.enumerated() {
-                if (val > 0 && states[i][j] != .uncovered) {
-                    return false
-                }
-            }
-        }
-        return true
-    }
+    @ObservedObject var model: GameViewModel
 
     var body: some View {
         let hexHeight = HEXRATIO * hexSize
         let hexWidth = hexSize
         return VStack(alignment: .leading, spacing: 0) {
-            ForEach(0..<boardConfig.rows, id: \.self) { i in
+            ForEach(0..<model.boardConfig.rows, id: \.self) { i in
                 HStack(spacing: 0) {
-                    ForEach(0..<boardConfig.cols, id: \.self) { j in
+                    ForEach(0..<model.boardConfig.cols, id: \.self) { j in
                         HexagonView(
-                            state: $states[i][j],
-                            isMine: boardMap[i][j] == -1,
-                            hintNum: boardMap[i][j] == 7 ? 0 : max(boardMap[i][j], 0),
-                            gameOver: { revealAllTiles() },
-                            foundEmptyTile: { revealEmptyTiles(i: i, j: j) },
-                            countFlags: countFlags // closure
+                            state: $model.tileStates[i][j],
+                            isMine: model.boardMap[i][j] == -1,
+                            hintNum: model.boardMap[i][j] == 7 ? 0 : max(model.boardMap[i][j], 0),
+                            gameOver: { model.revealAllTiles() },
+                            foundEmptyTile: { model.revealEmptyTiles(i, j) },
+                            countFlags: model.countFlags // closure
                         )
                         .frame(width: hexWidth, height: hexHeight)
                         .offset(x: (i % 2 != 0) ? hexWidth / 4 : -hexWidth / 4)
-                    }
-                }
-            }
-        }.onAppear() {
-            for (i, row) in boardConfig.mask.enumerated() {
-                for (j, value) in row.enumerated() {
-                    if value == 1 {
-                        self.states[i][j] = TileState.covered
                     }
                 }
             }
@@ -161,9 +106,6 @@ struct HexBoardView: View {
 
 struct HexBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        HexBoardView(boardConfig: beginnerBoardProto, flagCount: Binding<Int>(
-            get: { return 5 },       // Start with a dummy value
-            set: { _ in }            // Do nothing on change
-        ))
+        HexBoardView(model: GameViewModel(boardConfig: beginnerBoardProto))
     }
 }
