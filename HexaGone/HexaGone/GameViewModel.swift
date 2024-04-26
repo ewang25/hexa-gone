@@ -15,13 +15,17 @@ class GameViewModel: ObservableObject {
     
     init(boardConfig: BoardConfig) {
         self.boardConfig = boardConfig
-        reset()
+        self.boardMap = boardConfig.mask.map { $0.map { $0 == 0 ? 0 : 7 } } // Temporary value to wait until "first click"
+        resetTileStates()
     }
     
     var boardConfig: BoardConfig
     var boardMap: [[Int8]] = []
     @Published var flagCount = 0
     @Published var tileStates: [[TileState]] = []
+    
+    // Flag to track first move to initialize board appropriately
+    private var firstMove = true
     
     // Conditions for displaying the win and lose modals
     @Published var winCon = false
@@ -47,12 +51,39 @@ class GameViewModel: ObservableObject {
     }
     
     func revealAt(_ i: Int, _ j: Int) {
+        if firstMove {
+            revealFirstClick(i, j)
+            firstMove = false
+        }
         revealEmptyTiles(i, j)
         if boardMap[i][j] == -1 {
             // Game Over Logic
             loseCon = true // displays Lose modal
             revealAllTiles()
         }
+    }
+    
+    func revealFirstClick(_ i: Int, _ j: Int) {
+        boardMap = initializeBoard(boardConfig: boardConfig)
+        var attempts = 1
+        // ten tries to get an empty block
+        while (boardMap[i][j] != 7 && attempts < 10) {
+            boardMap = initializeBoard(boardConfig: boardConfig)
+            attempts += 1
+        }
+        // ten more tries to get either an empty block or a "one"
+        while (boardMap[i][j] != 7 && boardMap[i][j] != 1 && attempts < 20) {
+            boardMap = initializeBoard(boardConfig: boardConfig)
+            attempts += 1
+        }
+        // ten more tries to get anything other than a mine
+        while (boardMap[i][j] == -1 && attempts < 30) {
+            boardMap = initializeBoard(boardConfig: boardConfig)
+            attempts += 1
+        }
+        // regardless of whether attempts are successful, go with the boardMap we have after at most 20 tries.
+        
+        // Continue to finish revealAt(i, j) logic.
     }
     
     func toggleFlagAt(_ i: Int, _ j: Int) {
@@ -132,9 +163,7 @@ class GameViewModel: ObservableObject {
 
     }
     
-    func reset() {
-        boardMap = initializeBoard(boardConfig: boardConfig)
-        
+    func resetTileStates() {
         tileStates = Array(repeating: Array(repeating: TileState.outOfBounds, count: boardConfig.cols), count: boardConfig.rows)
         for (i, row) in boardMap.enumerated() {
             for (j, value) in row.enumerated() {
