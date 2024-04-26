@@ -23,7 +23,7 @@ struct HexagonView: View {
     var isMine: Bool
     var hintNum: Int8 // The number hint that denotes the number of surrounding mines
     var revealTile: () -> Void
-    var updateFlagCount: () -> Void
+    var toggleFlag: () -> Void
     var autoRevealCheck: () -> Void
     
     @State private var longPressTriggered = false
@@ -41,13 +41,7 @@ struct HexagonView: View {
     private func handleLongPress() {
         longPressTriggered = true
         // perform the long press action immediately
-        if state == .covered {
-            state = .flagged
-            updateFlagCount()
-        } else if state == .flagged {
-            state = .covered
-            updateFlagCount()
-        }
+        toggleFlag()
         
         // Reset the flag after a delay, to ensure taps are not processed
         // 0.35 was found to be the best delay on the simulator (for long press minimum duration = 0.3)
@@ -114,7 +108,7 @@ struct HexBoardView: View {
                             isMine: model.boardMap[i][j] == -1,
                             hintNum: model.boardMap[i][j] == 7 ? 0 : max(model.boardMap[i][j], 0),
                             revealTile: { model.revealAt(i, j) },
-                            updateFlagCount: model.countFlags, // closure
+                            toggleFlag: { model.toggleFlagAt(i, j) },
                             autoRevealCheck: { model.ifValidAutoRevealAt(i, j) }
                         )
                         .frame(width: hexWidth, height: hexHeight)

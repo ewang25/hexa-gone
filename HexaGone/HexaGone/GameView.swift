@@ -15,29 +15,6 @@ struct GameView: View {
     }
     
     @StateObject var model: GameViewModel
-    @State var winCon = false
-    @State var loseCon = false
-    
-    func checkCondition() {
-            // Simulate a condition being monitored
-            DispatchQueue.global().async {
-                while (!winCon && !loseCon) {
-                    if model.checkWin() {
-                        // Activate the navigation
-                        DispatchQueue.main.async {
-                            winCon = true
-                        }
-                    }
-                    if model.checkLose() {
-                        // Activate the navigation
-                        DispatchQueue.main.async {
-                            loseCon = true
-                        }
-                    }
-                    Thread.sleep(forTimeInterval: 1)
-                }
-            }
-        }
     
     var body: some View {
         ZStack {
@@ -86,18 +63,18 @@ struct GameView: View {
                 Spacer()
             }
             // win or lose view on top
-            if (winCon) {
+            if (model.winCon) {
                 Text("win")
                     .padding(20)
                     .background(Color.blue)
-            } else if (loseCon) {
+            } else if (model.loseCon) {
                 Text("lose")
                     .padding(20)
                     .background(Color.red)
             } else {
                 Text("you lost the game")
                     .opacity(0) //invisible text if neither win nor loss
-            }
+            } // I don't think you need this else?
         }
         // Custom back button
         .navigationBarBackButtonHidden(true)
@@ -117,7 +94,7 @@ struct GameView: View {
             }
         }
         .onAppear{
-            checkCondition()
+            model.loopCheckWinCon()
         }
     }
 }

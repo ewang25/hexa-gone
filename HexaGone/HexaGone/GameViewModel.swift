@@ -5,6 +5,12 @@
 
 import Foundation
 
+// Note: Key for boardMap: [[Int8]]
+// 0 represents an out-of-bounds tile
+// -1 is a mine tile
+// 1-6 are all hexagon tiles; each number represents however many mines there are around
+// 7 is a hexagon tile with no neighboring mines
+
 class GameViewModel: ObservableObject {
     
     init(boardConfig: BoardConfig) {
@@ -17,6 +23,25 @@ class GameViewModel: ObservableObject {
     @Published var flagCount = 0
     @Published var tileStates: [[TileState]] = []
     
+    // Conditions for displaying the win and lose modals
+    @Published var winCon = false
+    @Published var loseCon = false
+    
+    func loopCheckWinCon() {
+        // Simulate a condition being monitored
+        DispatchQueue.global().async {
+            while (!self.winCon) {
+                if self.checkWin() {
+                    // Activate the navigation
+                    DispatchQueue.main.async {
+                        self.winCon = true
+                    }
+                }
+                Thread.sleep(forTimeInterval: 1)
+            }
+        }
+    }
+    
     private func check(_ i: Int, _ j: Int, _ action: (Int, Int) -> Void) {
         checkSurroundingHexagons(map: boardMap, i: i, j: j, action: action)
     }
@@ -25,7 +50,19 @@ class GameViewModel: ObservableObject {
         revealEmptyTiles(i, j)
         if boardMap[i][j] == -1 {
             // Game Over Logic
+            loseCon = true // displays Lose modal
             revealAllTiles()
+        }
+    }
+    
+    func toggleFlagAt(_ i: Int, _ j: Int) {
+        if tileStates[i][j] == .covered {
+            tileStates[i][j] = .flagged
+            countFlags() // update displayed flag count
+        } else if (tileStates[i][j] == .flagged && !winCon) {
+            // Make it impossible to unflag a flagged tile after winning, this way loseCon cannot be activated simultaneously with winCon.
+            tileStates[i][j] = .covered
+            countFlags() // update displayed flag count
         }
     }
     
@@ -71,18 +108,6 @@ class GameViewModel: ObservableObject {
             }
         }
         return true
-    }
-    
-    //checks if you lost
-    func checkLose() -> Bool {
-        for (i, row) in boardMap.enumerated() {
-            for (j, val) in row.enumerated() {
-                if (val < 0 && tileStates[i][j] == .uncovered) {
-                    return true
-                }
-            }
-        }
-        return false
     }
 
     // Count flags for auto-reveal
