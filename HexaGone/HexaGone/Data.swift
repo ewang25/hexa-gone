@@ -80,27 +80,27 @@ let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask
 //let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: generateBoard(n: 6))
 
 
-//function for the number of rows in the board based on size of map
-func columnsInBoard(n: Int) -> Int {
-    return 2 * n - 1 + 6
+//function for the number of rows in the board based on size of map(n) with bounds(k)
+func columnsInBoard(n: Int, k: Int) -> Int {
+    return 2 * n - 1 + 2 * k
 }
 
-//function for the number of columns in the board based on size of map
-func rowsInBoard(n: Int) -> Int {
-    return 2 * n - 1 + 8
+//function for the number of columns in the board based on size of map(n) with bounds(k)
+func rowsInBoard(n: Int, k: Int) -> Int {
+    return 2 * n - 1 + 2 * k
 }
 
 //test the board
-let advancedBoard = BoardConfig(rows: rowsInBoard(n: 17), cols: columnsInBoard(n: 17), mineCount: 110, mask: generateBoard(n: 17))
+let advancedBoard = BoardConfig(rows: rowsInBoard(n: 17, k: 3), cols: columnsInBoard(n: 17, k: 4), mineCount: 110, mask: generateBoard(n: 17, h: 3, v: 4))
 
-let intermediateBoard = BoardConfig(rows: rowsInBoard(n: 11), cols: columnsInBoard(n: 11), mineCount: 65, mask: generateBoard(n: 11))
+let intermediateBoard = BoardConfig(rows: rowsInBoard(n: 11, k: 3), cols: columnsInBoard(n: 11, k: 4), mineCount: 65, mask: generateBoard(n: 11, h: 3, v: 4))
 
-let noviceBoard = BoardConfig(rows: rowsInBoard(n: 5), cols: columnsInBoard(n: 5), mineCount: 10, mask: generateBoard(n: 5))
+let noviceBoard = BoardConfig(rows: rowsInBoard(n: 5, k: 3), cols: columnsInBoard(n: 5, k: 4), mineCount: 10, mask: generateBoard(n: 5, h: 3, v: 4))
 
 
 
-//function to generate a board given the size of the map
-func generateBoard(n: Int) -> [[Int8]] {
+//function to generate a board given the size of the map(n) with horizontal bounds(h) and vertical bounds(v)
+func generateBoard(n: Int, h: Int, v: Int) -> [[Int8]] {
     //size of board (extra 3 cells on left/right, extra 4 on top/bottom)
     var newboard = Array(repeating: Array(repeating: Int8(0), count: 6 + 2 * n - 1), count: 8 + 2 * n - 1)
      
