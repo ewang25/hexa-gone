@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TitleScreenBackgroundView: View {
     // Size of the base frame (this applies to "content")
@@ -11,7 +12,7 @@ struct TitleScreenBackgroundView: View {
     public var frameHeight: CGFloat = titleScreenBackgroundBoard.boardHeight()
 
     @State private var offset: CGSize = .zero
-    @State private var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    @State private var timer: AnyCancellable? = nil
     @State private var flipflop = false
 
     var body: some View {
@@ -25,23 +26,26 @@ struct TitleScreenBackgroundView: View {
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
         }
-        .onReceive(timer) { _ in
-            // Additional actions to refresh the content
-            flipflop.toggle()
-            performStep()
-        }
-    }
-    
-    @State var step = 0
-    
-    func performStep() {
-        if (flipflop) {
-            withAnimation(Animation.easeInOut(duration: 5)) {
-                offset = CGSize(width: -90, height: -90)
-            }
-        } else {
-            withAnimation(Animation.easeInOut(duration: 5)) {
-                offset = CGSize(width: 90, height: 90)
+        .onAppear() {
+            // Delay the start of the timer by 1 second, then repeat every 5 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation(Animation.easeInOut(duration: 5)) {
+                    offset = CGSize(width: 90, height: 90)
+                }
+                self.timer = Timer.publish(every: 5, on: .main, in: .common)
+                      .autoconnect()
+                      .sink { _ in
+                          flipflop.toggle()
+                          if (flipflop) {
+                              withAnimation(Animation.easeInOut(duration: 5)) {
+                                  offset = CGSize(width: -90, height: -90)
+                              }
+                          } else {
+                              withAnimation(Animation.easeInOut(duration: 5)) {
+                                  offset = CGSize(width: 90, height: 90)
+                              }
+                          }
+                      }
             }
         }
     }
