@@ -93,7 +93,7 @@ func rowsInBoard(n: Int) -> Int {
 //test the board
 let advancedBoard = BoardConfig(rows: rowsInBoard(n: 17), cols: columnsInBoard(n: 17), mineCount: 110, mask: generateBoard(n: 17))
 
-let intermediateBoard = BoardConfig(rows: rowsInBoard(n: 11), cols: columnsInBoard(n: 11), mineCount: 65, mask: generateBoard(n: 17))
+let intermediateBoard = BoardConfig(rows: rowsInBoard(n: 11), cols: columnsInBoard(n: 11), mineCount: 65, mask: generateBoard(n: 11))
 
 let noviceBoard = BoardConfig(rows: rowsInBoard(n: 5), cols: columnsInBoard(n: 5), mineCount: 10, mask: generateBoard(n: 5))
 
