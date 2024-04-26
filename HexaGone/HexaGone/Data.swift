@@ -100,12 +100,12 @@ func generateBoard(n: Int, h: Int, v: Int) -> [[Int8]] {
     //size of board (extra 3 cells on left/right, extra 4 on top/bottom)
     var newboard = Array(repeating: Array(repeating: Int8(0), count: boardPadding(n: n, k: h)), count: boardPadding(n: n, k: v))
      
-    //function to determine number of zeros on left of row
+    //function to determine the first 1 in the row
     func leftMargin(extraMargin: Int) -> Int {
         h + extraMargin
     }
 
-    //function for number of zeros in right of row
+    //function to determine the last 1 in the row
     func rightMargin(extraMargin: Int) -> Int {
         newboard[0].count - 1 - h - extraMargin
     }
@@ -113,15 +113,15 @@ func generateBoard(n: Int, h: Int, v: Int) -> [[Int8]] {
     //iterate over rows
     for i in v...(newboard.count - 1 - v){
         
-        let totalExtraMargin = abs(i-(n+3))
+        let totalExtraMargin = abs(i - (n + v - 1))
         
-        if ((n + i) % 2 == 1){
+        if ((n + i + v) % 2 == 1){
             for j in leftMargin(extraMargin: totalExtraMargin/2)...rightMargin(extraMargin: totalExtraMargin/2) {
                 newboard[i][j] = 1
             }
         }
         else {
-            if (n % 2 == 0) {
+            if ((n+v) % 2 == 0) {
                 for j in leftMargin(extraMargin: (totalExtraMargin+1)/2)...rightMargin(extraMargin: (totalExtraMargin-1)/2) {
                     newboard[i][j] = 1
                 }
