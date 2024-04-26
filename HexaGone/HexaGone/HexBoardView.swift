@@ -79,11 +79,13 @@ struct HexagonView: View {
 
 struct HexBoardView: View {
     @ObservedObject var model: GameViewModel
+    
+    // constants for scaling/display calculations
+    let hexHeight = HEXRATIO * hexSize
+    let hexWidth = hexSize
 
     var body: some View {
-        let hexHeight = HEXRATIO * hexSize
-        let hexWidth = hexSize
-        return VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<model.boardConfig.rows, id: \.self) { i in
                 HStack(spacing: 0) {
                     ForEach(0..<model.boardConfig.cols, id: \.self) { j in
