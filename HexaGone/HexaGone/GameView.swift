@@ -85,6 +85,19 @@ struct GameView: View {
                 }
                 Spacer()
             }
+            // win or lose view on top
+            if (winCon) {
+                Text("win")
+                    .padding(20)
+                    .background(Color.blue)
+            } else if (loseCon) {
+                Text("lose")
+                    .padding(20)
+                    .background(Color.red)
+            } else {
+                Text("you lost the game")
+                    .opacity(0) //invisible text if neither win nor loss
+            }
         }
         // Custom back button
         .navigationBarBackButtonHidden(true)
@@ -106,16 +119,16 @@ struct GameView: View {
         .onAppear{
             checkCondition()
         }
-        .background(
-            VStack {
-                NavigationLink(destination: Text("win"), isActive: $winCon) {
-                    EmptyView()
-                }
-                NavigationLink(destination: Text("you lost the game"), isActive: $loseCon) {
-                    EmptyView()
-                }
-            }
-        ) //eventually change Text("temp") to win screen
+//        .background(
+//            VStack {
+//                NavigationLink(destination: Text("win"), isActive: $winCon) {
+//                    EmptyView()
+//                }
+//                NavigationLink(destination: Text("you lost the game"), isActive: $loseCon) {
+//                    EmptyView()
+//                }
+//            }
+//        ) //eventually change Text("temp") to win screen
     }
 }
 
