@@ -80,11 +80,11 @@ func boardPadding(n: Int, k: Int) -> Int {
 
 
 //test the board
-let advancedBoard = BoardConfig(rows: boardPadding(n: 17, k: 4), cols: boardPadding(n: 17, k: 3), mineCount: 110, mask: generateBoard(n: 17, h: 3, v: 4))
+let advancedBoard = BoardConfig(rows: boardPadding(n: 17, k: 7), cols: boardPadding(n: 17, k: 3), mineCount: 110, mask: generateBoard(n: 17, h: 3, v: 7))
 
-let intermediateBoard = BoardConfig(rows: boardPadding(n: 11, k: 4), cols: boardPadding(n: 11, k: 3), mineCount: 65, mask: generateBoard(n: 11, h: 3, v: 4))
+let intermediateBoard = BoardConfig(rows: boardPadding(n: 11, k: 6), cols: boardPadding(n: 11, k: 3), mineCount: 65, mask: generateBoard(n: 11, h: 3, v: 6))
 
-let noviceBoard = BoardConfig(rows: boardPadding(n: 5, k: 4), cols: boardPadding(n: 5, k: 3), mineCount: 10, mask: generateBoard(n: 5, h: 3, v: 4))
+let noviceBoard = BoardConfig(rows: boardPadding(n: 5, k: 5), cols: boardPadding(n: 5, k: 3), mineCount: 10, mask: generateBoard(n: 5, h: 3, v: 5))
 
 
 
