@@ -80,22 +80,18 @@ let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask
 //let beginnerBoard = boardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: generateBoard(n: 6))
 
 
-//function for the number of rows in the board based on size of map(n) with bounds(k)
-func columnsInBoard(n: Int, k: Int) -> Int {
+//function for padding the board based on size of map(n) with padding(k)
+func boardPadding(n: Int, k: Int) -> Int {
     return 2 * n - 1 + 2 * k
 }
 
-//function for the number of columns in the board based on size of map(n) with bounds(k)
-func rowsInBoard(n: Int, k: Int) -> Int {
-    return 2 * n - 1 + 2 * k
-}
 
 //test the board
-let advancedBoard = BoardConfig(rows: rowsInBoard(n: 17, k: 3), cols: columnsInBoard(n: 17, k: 4), mineCount: 110, mask: generateBoard(n: 17, h: 3, v: 4))
+let advancedBoard = BoardConfig(rows: boardPadding(n: 17, k: 4), cols: boardPadding(n: 17, k: 3), mineCount: 110, mask: generateBoard(n: 17, h: 3, v: 4))
 
-let intermediateBoard = BoardConfig(rows: rowsInBoard(n: 11, k: 3), cols: columnsInBoard(n: 11, k: 4), mineCount: 65, mask: generateBoard(n: 11, h: 3, v: 4))
+let intermediateBoard = BoardConfig(rows: boardPadding(n: 11, k: 4), cols: boardPadding(n: 11, k: 3), mineCount: 65, mask: generateBoard(n: 11, h: 3, v: 4))
 
-let noviceBoard = BoardConfig(rows: rowsInBoard(n: 5, k: 3), cols: columnsInBoard(n: 5, k: 4), mineCount: 10, mask: generateBoard(n: 5, h: 3, v: 4))
+let noviceBoard = BoardConfig(rows: boardPadding(n: 5, k: 4), cols: boardPadding(n: 5, k: 3), mineCount: 10, mask: generateBoard(n: 5, h: 3, v: 4))
 
 
 
