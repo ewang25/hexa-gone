@@ -60,6 +60,18 @@ class GameViewModel: ObservableObject {
         return true
     }
     
+    //checks if you lost
+    func checkLose() -> Bool {
+        for (i, row) in boardMap.enumerated() {
+            for (j, val) in row.enumerated() {
+                if (val < 0 && tileStates[i][j] == .uncovered) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     func reset() {
         boardMap = initializeBoard(boardConfig: boardConfig)
         

@@ -16,15 +16,22 @@ struct GameView: View {
     
     @StateObject var model: GameViewModel
     @State var winCon = false
+    @State var loseCon = false
     
     func checkCondition() {
             // Simulate a condition being monitored
             DispatchQueue.global().async {
-                while !winCon {
+                while (!winCon && !loseCon) {
                     if model.checkWin() {
                         // Activate the navigation
                         DispatchQueue.main.async {
                             winCon = true
+                        }
+                    }
+                    if model.checkLose() {
+                        // Activate the navigation
+                        DispatchQueue.main.async {
+                            loseCon = true
                         }
                     }
                     Thread.sleep(forTimeInterval: 1)
@@ -100,8 +107,13 @@ struct GameView: View {
             checkCondition()
         }
         .background(
-            NavigationLink(destination: Text("temp"), isActive: $winCon) {
-                EmptyView()
+            VStack {
+                NavigationLink(destination: Text("win"), isActive: $winCon) {
+                    EmptyView()
+                }
+                NavigationLink(destination: Text("you lost the game"), isActive: $loseCon) {
+                    EmptyView()
+                }
             }
         ) //eventually change Text("temp") to win screen
     }
