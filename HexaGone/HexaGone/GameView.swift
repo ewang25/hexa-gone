@@ -119,16 +119,6 @@ struct GameView: View {
         .onAppear{
             checkCondition()
         }
-//        .background(
-//            VStack {
-//                NavigationLink(destination: Text("win"), isActive: $winCon) {
-//                    EmptyView()
-//                }
-//                NavigationLink(destination: Text("you lost the game"), isActive: $loseCon) {
-//                    EmptyView()
-//                }
-//            }
-//        ) //eventually change Text("temp") to win screen
     }
 }
 
