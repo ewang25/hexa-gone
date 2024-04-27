@@ -77,4 +77,6 @@ We can use these as starting references for our version of HexaGone.
 
 |Name|Side Length|Size|Mines|Density|
 |:-:|:-:|:-:|:-:|:-:|
-|Beginner|n=6|91|10|10.989%|
+|Novice|n=5|61|10|16.393%|
+|Intermediate|n=11|331|55|16.616%|
+|Advanced|n=17|817|160|19.584%|
