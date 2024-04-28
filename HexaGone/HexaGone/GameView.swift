@@ -16,7 +16,7 @@ struct GameView: View {
     
     @StateObject var model: GameViewModel
     @State var timerActive: Bool = true
-    
+    @State var elapsedTime = 0
     
     var body: some View {
         ZStack {
@@ -58,7 +58,7 @@ struct GameView: View {
                         VStack (spacing: 0) {
                             Image(systemName: "timer.circle")
                                 .font(.title)
-                            TimerView(isActive: $timerActive)
+                            TimerView(elapsedTime: $elapsedTime, isActive: $timerActive)
                         }
                     }
                 }
@@ -66,13 +66,19 @@ struct GameView: View {
             }
             // win or lose view on top
             if (model.winCon) {
-                Text("win")
-                    .padding(20)
-                    .background(Color.blue)
+                VStack {
+                    Text("Win!")
+                    Text("Time: \(elapsedTime)")
+                }
+                .padding(20)
+                .background(Color.blue)
             } else if (model.loseCon) {
-                Text("lose")
-                    .padding(20)
-                    .background(Color.red)
+                VStack {
+                    Text("Loss")
+                    Text("Time: \(elapsedTime)")
+                }
+                .padding(20)
+                .background(Color.red)
             } else {
                 Text("you lost the game")
                     .opacity(0) //invisible text if neither win nor loss
@@ -116,7 +122,7 @@ struct TimerView : View {
     // TIMER
     @State private var startTime = Date()
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State private var elapsedTime = 0
+    @Binding var elapsedTime: Int
     @Binding var isActive: Bool
     
     // Computes the elapsed time string
