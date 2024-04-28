@@ -15,6 +15,7 @@ struct GameView: View {
     }
     
     @StateObject var model: GameViewModel
+    @State var timerActive: Bool = true
     
     var body: some View {
         ZStack {
@@ -56,7 +57,7 @@ struct GameView: View {
                         VStack (spacing: 0) {
                             Image(systemName: "timer.circle")
                                 .font(.title)
-                            TimerView()
+                            TimerView(isActive: $timerActive)
                         }
                     }
                 }
@@ -105,6 +106,7 @@ struct TimerView : View {
     @State private var startTime = Date()
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var elapsedTime = 0
+    @Binding var isActive: Bool
     
     // Computes the elapsed time string
     var elapsedTimeString: String {
@@ -128,7 +130,9 @@ struct TimerView : View {
     var body: some View {
         Text("\(elapsedTimeString)")
             .onReceive(timer) { _ in
-                updateElapsedTime()
+                if isActive {
+                    updateElapsedTime()
+                }
             }
             .onAppear {
                 startTime = Date()  // Reset the start time when the view appears
