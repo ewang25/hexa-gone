@@ -41,7 +41,7 @@ class GameViewModel: ObservableObject {
                         self.winCon = true
                     }
                 }
-                Thread.sleep(forTimeInterval: 1)
+                Thread.sleep(forTimeInterval: 0.5)
             }
         }
     }

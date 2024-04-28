@@ -17,6 +17,7 @@ struct GameView: View {
     @StateObject var model: GameViewModel
     @State var timerActive: Bool = true
     
+    
     var body: some View {
         ZStack {
             ZoomAndDragView(
@@ -96,6 +97,16 @@ struct GameView: View {
         }
         .onAppear{
             model.loopCheckWinCon()
+            DispatchQueue.global().async {
+                while (timerActive) {
+                    if (model.loseCon || model.winCon) {
+                        DispatchQueue.main.async {
+                            timerActive = false
+                        }
+                    }
+                    Thread.sleep(forTimeInterval: 0.5)
+                }
+            }
         }
     }
 }
