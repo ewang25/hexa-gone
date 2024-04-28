@@ -10,6 +10,9 @@ import SwiftUI
 // Homescreen Idea: Scrolling game baord that gets constantly regenerated (like the accidental updating, but intentional this time)
 
 struct ContentView: View {
+    @State var highScore: Double = 0.0
+    //create a score system that takes into account difficulty, time, and number of hints used?
+    
     var body: some View {
         NavigationView {
             ZStack {

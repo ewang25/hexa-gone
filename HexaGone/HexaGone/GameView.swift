@@ -16,7 +16,7 @@ struct GameView: View {
     
     @StateObject var model: GameViewModel
     @State var timerActive: Bool = true
-    @State var elapsedTime = 0
+    @State var elapsedTime: Int = 0
     
     var body: some View {
         ZStack {
