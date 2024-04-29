@@ -68,14 +68,13 @@ struct GameView: View {
             if (model.winCon) {
                 VStack {
                     Text("Win!")
-                    Text("Time: \(elapsedTime)")
+                    Text("Score: \(elapsedTime)")
                 }
                 .padding(20)
                 .background(Color.blue)
             } else if (model.loseCon) {
                 VStack {
                     Text("Loss")
-                    Text("Time: \(elapsedTime)")
                 }
                 .padding(20)
                 .background(Color.red)

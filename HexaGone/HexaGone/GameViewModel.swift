@@ -31,6 +31,9 @@ class GameViewModel: ObservableObject {
     @Published var winCon = false
     @Published var loseCon = false
     
+    // Condition for hint or not hint mode
+    @Published var hintMode = false
+    
     func loopCheckWinCon() {
         // Simulate a condition being monitored
         DispatchQueue.global().async {
@@ -50,17 +53,29 @@ class GameViewModel: ObservableObject {
         checkSurroundingHexagons(map: boardMap, i: i, j: j, action: action)
     }
     
-    func revealAt(_ i: Int, _ j: Int) {
+    func revealAt(_ i: Int, _ j: Int) -> Void {
+        // Assumes tile state is covered
         if firstMove {
             revealFirstClick(i, j)
             firstMove = false
         }
-        revealEmptyTiles(i, j)
+        if hintMode {
+            // Code to decrease number of hints left and disable hint mode
+            
+            hintMode.toggle()
+            
+            // Flag and return if bomb
+            if boardMap[i][j] == -1 {
+                toggleFlagAt(i, j)
+                return
+            }
+        }
         if boardMap[i][j] == -1 {
             // Game Over Logic
             loseCon = true // displays Lose modal
             revealAllTiles()
         }
+        revealEmptyTiles(i, j)
     }
     
     func revealFirstClick(_ i: Int, _ j: Int) {
