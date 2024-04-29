@@ -15,7 +15,11 @@ class GameViewModel: ObservableObject {
     
     init(boardConfig: BoardConfig) {
         self.boardConfig = boardConfig
-        self.boardMap = boardConfig.mask.map { $0.map { $0 == 0 ? 0 : 7 } } // Temporary value to wait until "first click"
+        // Temporary value to wait until "first click" to re-initialize
+        self.boardMap = boardConfig.mask.map { $0.map { $0 == 0 ? 0 : 7 } }
+        // Initialize number of hints left for player to use
+        self.hintsLeft = boardConfig.hintCount
+        // Initialize tileStates
         resetTileStates()
     }
     
@@ -32,6 +36,7 @@ class GameViewModel: ObservableObject {
     @Published var loseCon = false
     
     // Condition for hint or not hint mode
+    @Published var hintsLeft: Int
     @Published var hintMode = false
     
     func loopCheckWinCon() {
@@ -55,6 +60,10 @@ class GameViewModel: ObservableObject {
     
     func revealAt(_ i: Int, _ j: Int) -> Void {
         // Assumes tile state is covered
+        // Don't let user reveal (mine) after winning
+        if winCon {
+            return
+        }
         if firstMove {
             revealFirstClick(i, j)
             firstMove = false
@@ -179,6 +188,7 @@ class GameViewModel: ObservableObject {
     }
     
     func resetTileStates() {
+        // Sets all boardMap=0 tiles to .outOfBounds and all others to .covered
         tileStates = Array(repeating: Array(repeating: TileState.outOfBounds, count: boardConfig.cols), count: boardConfig.rows)
         for (i, row) in boardMap.enumerated() {
             for (j, value) in row.enumerated() {

@@ -64,7 +64,7 @@ struct GameView: View {
                 }
                 Spacer()
             }
-            // win or lose view on top
+            // win or lose (modal) view on top
             if (model.winCon) {
                 VStack {
                     Text("Win!")
