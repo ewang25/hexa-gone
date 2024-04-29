@@ -14,6 +14,7 @@ struct BoardConfig {
     var rows: Int
     var cols: Int
     var mineCount: Int
+    var hintCount: Int
     var mask: [[Int8]]
     
     // helpers for ZoomAndDragView
@@ -48,7 +49,7 @@ struct BoardConfig {
 //])
 
 //prototype and visualization of a Beginner board
-let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, mask: [
+let beginnerBoardProto = BoardConfig(rows: 11+8, cols: 11+6, mineCount: 10, hintCount: 2, mask: [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -80,11 +81,11 @@ func boardPadding(n: Int, k: Int) -> Int {
 
 
 //test the board
-let advancedBoard = BoardConfig(rows: boardPadding(n: 17, k: 7), cols: boardPadding(n: 17, k: 3), mineCount: 160, mask: generateBoard(n: 17, h: 3, v: 7))
+let advancedBoard = BoardConfig(rows: boardPadding(n: 17, k: 7), cols: boardPadding(n: 17, k: 3), mineCount: 160, hintCount: 3, mask: generateBoard(n: 17, h: 3, v: 7))
 
-let intermediateBoard = BoardConfig(rows: boardPadding(n: 11, k: 6), cols: boardPadding(n: 11, k: 3), mineCount: 55, mask: generateBoard(n: 11, h: 3, v: 6))
+let intermediateBoard = BoardConfig(rows: boardPadding(n: 11, k: 6), cols: boardPadding(n: 11, k: 3), mineCount: 55, hintCount: 2, mask: generateBoard(n: 11, h: 3, v: 6))
 
-let noviceBoard = BoardConfig(rows: boardPadding(n: 5, k: 5), cols: boardPadding(n: 5, k: 3), mineCount: 10, mask: generateBoard(n: 5, h: 3, v: 5))
+let noviceBoard = BoardConfig(rows: boardPadding(n: 5, k: 5), cols: boardPadding(n: 5, k: 3), mineCount: 10, hintCount: 2, mask: generateBoard(n: 5, h: 3, v: 5))
 
 
 
