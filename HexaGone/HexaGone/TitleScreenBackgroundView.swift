@@ -6,6 +6,8 @@
 import SwiftUI
 import Combine
 
+// BUG: Doesn't work in contentView after loading game and returning back to main menu (need to fix by resetting timer.
+
 struct TitleScreenBackgroundView: View {
     // Size of the base frame (this applies to "content")
     public var frameWidth: CGFloat = titleScreenBackgroundBoard.boardWidth()
@@ -51,7 +53,7 @@ struct TitleScreenBackgroundView: View {
     }
 }
 
-let titleScreenBackgroundBoard = BoardConfig(rows: 20, cols: 20, mineCount: 75, mask: Array(repeating: Array(repeating: Int8(1), count: 20), count: 20))
+let titleScreenBackgroundBoard = BoardConfig(rows: 20, cols: 20, mineCount: 75, hintCount: 0, mask: Array(repeating: Array(repeating: Int8(1), count: 20), count: 20))
 
 struct TitleScreenBackgroundHexBoardView: View {
     @StateObject var model = GameViewModel(boardConfig: titleScreenBackgroundBoard)
