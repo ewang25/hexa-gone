@@ -35,10 +35,6 @@ class GameViewModel: ObservableObject {
     @Published var winCon = false
     @Published var loseCon = false
     
-    // Condition for hint or not hint mode
-    @Published var hintsLeft: Int
-    @Published var hintMode = false
-    
     func loopCheckWinCon() {
         // Simulate a condition being monitored
         DispatchQueue.global().async {
@@ -51,6 +47,21 @@ class GameViewModel: ObservableObject {
                 }
                 Thread.sleep(forTimeInterval: 0.5)
             }
+        }
+    }
+    
+    // Condition for hint or not hint mode
+    @Published var hintsLeft: Int
+    @Published var hintMode = false
+    
+    func toggleHintMode() {
+        // Activates hint mode if eligable (logic to determine whether eligable)
+        if hintMode {
+            hintMode = false
+        } else if (hintsLeft > 0 && !firstMove) {
+            // Only activate hint mode when there are still hints left
+            // Do not allow use of hint on the first move (it is otherwise wasted because first move is guaranteed (as much as possible) not to be on a mine)
+            hintMode = true
         }
     }
     
@@ -70,7 +81,7 @@ class GameViewModel: ObservableObject {
         }
         if hintMode {
             // Code to decrease number of hints left and disable hint mode
-            
+            hintsLeft -= 1
             hintMode.toggle()
             
             // Flag and return if bomb

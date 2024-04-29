@@ -63,6 +63,29 @@ struct GameView: View {
                     }
                 }
                 Spacer()
+                HStack {
+                    Button(action: {
+                        model.toggleHintMode()
+                    }) {
+                        ZStack {
+                            Rectangle()
+                                .fill(
+                                    model.hintMode ? .gray : .white
+                                )
+                                .cornerRadius(10)
+                                .frame(width: 90, height: 90)
+                                .padding()
+                            VStack (spacing: 0) {
+                                Image(systemName: 
+                                        model.hintsLeft > 0 ? "lightbulb.max" : "lightbulb.min.badge.exclamationmark"
+                                )
+                                    .font(.title)
+                                Text("\(model.hintsLeft)")
+                            }
+                        }
+                    }
+                    Spacer()
+                }
             }
             // win or lose (modal) view on top
             if (model.winCon) {
