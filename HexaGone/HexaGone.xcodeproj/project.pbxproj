@@ -27,6 +27,7 @@
 		2E800B7A2BD95BE6003A7643 /* num_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E800B6E2BD95BE6003A7643 /* num_5.png */; };
 		2E800B7B2BD95BE6003A7643 /* num_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E800B6F2BD95BE6003A7643 /* num_6.png */; };
 		2E800B7D2BD9E7FB003A7643 /* ZoomAndDragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E800B7C2BD9E7FB003A7643 /* ZoomAndDragView.swift */; };
+		2E83F7BA2BE09ED3002E46D8 /* SystemAudioTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83F7B92BE09ED3002E46D8 /* SystemAudioTester.swift */; };
 		2ED2F2902BDC20CB0045F7DB /* TitleScreenBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F28F2BDC20CB0045F7DB /* TitleScreenBackgroundView.swift */; };
 		BB527CD22BD96629001AEDCB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB527CD12BD96629001AEDCB /* Data.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		2E800B6E2BD95BE6003A7643 /* num_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = num_5.png; sourceTree = "<group>"; };
 		2E800B6F2BD95BE6003A7643 /* num_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = num_6.png; sourceTree = "<group>"; };
 		2E800B7C2BD9E7FB003A7643 /* ZoomAndDragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAndDragView.swift; sourceTree = "<group>"; };
+		2E83F7B92BE09ED3002E46D8 /* SystemAudioTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioTester.swift; sourceTree = "<group>"; };
 		2ED2F28F2BDC20CB0045F7DB /* TitleScreenBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreenBackgroundView.swift; sourceTree = "<group>"; };
 		BB527CD12BD96629001AEDCB /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				2E800B3D2BD82100003A7643 /* Assets.xcassets */,
 				2E800B3F2BD82100003A7643 /* Preview Content */,
 				BB527CD12BD96629001AEDCB /* Data.swift */,
+				2E83F7B92BE09ED3002E46D8 /* SystemAudioTester.swift */,
 			);
 			path = HexaGone;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			files = (
 				2E800B3C2BD820FF003A7643 /* ContentView.swift in Sources */,
 				BB527CD22BD96629001AEDCB /* Data.swift in Sources */,
+				2E83F7BA2BE09ED3002E46D8 /* SystemAudioTester.swift in Sources */,
 				2E800B4A2BD82C7A003A7643 /* HexBoardView.swift in Sources */,
 				2E800B7D2BD9E7FB003A7643 /* ZoomAndDragView.swift in Sources */,
 				2E800B482BD82854003A7643 /* GameView.swift in Sources */,
