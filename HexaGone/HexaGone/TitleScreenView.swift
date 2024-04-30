@@ -68,6 +68,25 @@ struct TitleScreenView: View {
             ForEach(TitleScreenButtonList) { button in
                 TitleScreenButton(data: button)
             }
+            HStack {
+                NavigationLink(destination: {}) {
+                    Image(systemName: "trophy")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                        .padding(EdgeInsets(top: 0, leading: 90, bottom: 0, trailing: 0))
+                        
+                }
+                Spacer()
+                NavigationLink(destination: {}) {
+                    Image(systemName: "gear")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 90))
+                        
+                }
+            }
         }
     }
 }
