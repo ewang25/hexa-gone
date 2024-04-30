@@ -27,6 +27,7 @@ struct TitleScreenBackgroundView: View {
                     .offset(x: offset.width, y: offset.height)
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
+            Color.black.opacity(0.4).ignoresSafeArea()
         }
         .onAppear() {
             // Delay the start of the timer by 1 second, then repeat every 5 seconds
