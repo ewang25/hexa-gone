@@ -28,6 +28,10 @@ class GameViewModel: ObservableObject {
     @Published var flagCount = 0
     @Published var tileStates: [[TileState]] = []
     
+    // Timer
+    @Published var timerActive: Bool = true
+    @Published var elapsedTime: Int = 0
+    
     // Flag to track first move to initialize board appropriately
     private var firstMove = true
     

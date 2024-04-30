@@ -15,8 +15,6 @@ struct GameView: View {
     }
     
     @StateObject var model: GameViewModel
-    @State var timerActive: Bool = true
-    @State var elapsedTime: Int = 0
     @EnvironmentObject var data: AppModel
     
     var body: some View {
@@ -59,7 +57,7 @@ struct GameView: View {
                         VStack (spacing: 0) {
                             Image(systemName: "timer.circle")
                                 .font(.title)
-                            TimerView(elapsedTime: $elapsedTime, isActive: $timerActive)
+                            TimerView(elapsedTime: $model.elapsedTime, isActive: $model.timerActive)
                         }
                     }
                 }
@@ -93,7 +91,7 @@ struct GameView: View {
             if (model.winCon) {
                 VStack {
                     Text("Win!")
-                    Text("Score: \(elapsedTime)")
+                    Text("Score: \(model.elapsedTime)")
                 }
                 .padding(20)
                 .background(Color.blue)
@@ -128,10 +126,10 @@ struct GameView: View {
         .onAppear{
             model.loopCheckWinCon()
             DispatchQueue.global().async {
-                while (timerActive) {
+                while (model.timerActive) {
                     if (model.loseCon || model.winCon) {
                         DispatchQueue.main.async {
-                            timerActive = false
+                            model.timerActive = false
                         }
                     }
                     Thread.sleep(forTimeInterval: 0.5)
