@@ -47,6 +47,7 @@ class GameViewModel: ObservableObject {
                     // Activate the navigation
                     DispatchQueue.main.async {
                         self.winCon = true
+                        sound_gameWon()
                     }
                 }
                 Thread.sleep(forTimeInterval: 0.5)
@@ -62,12 +63,63 @@ class GameViewModel: ObservableObject {
         // Activates hint mode if eligable (logic to determine whether eligable)
         if hintMode {
             hintMode = false
+            sound_deactivateHintButton()
         } else if (hintsLeft > 0 && !firstMove) {
             // Only activate hint mode when there are still hints left
             // Do not allow use of hint on the first move (it is otherwise wasted because first move is guaranteed (as much as possible) not to be on a mine)
             hintMode = true
+            sound_activateHintButton()
+        } else {
+            sound_noHintsLeft()
         }
     }
+    
+    // For interactivity
+    func handleTap(_ i: Int, _ j: Int) {
+        if tileStates[i][j] == .uncovered {
+            // Auto-Reveal feature
+            // Description: Clicking on hint number with the correct amount of surrounding mines (regardless of whether the flags are correctly placed) will cause all remaining surrounding covered tiles to be revealed.
+            ifValidAutoRevealAt(i, j)
+            sound_uncoverTileWithZero()
+        } else if tileStates[i][j] == .covered {
+            // Play sound
+            if firstMove {
+                
+            } else if hintMode {
+                sound_useHint()
+            } else if boardMap[i][j] == -1 {
+                sound_mineClicked()
+            } else if boardMap[i][j] == 7 {
+                sound_uncoverTileWithZero()
+            } else {
+                sound_uncoverTile()
+            }
+            revealAt(i, j)
+        } else {
+            sound_outOfBoundsTile()
+        }
+    }
+    
+    func handleLongPress(_ i: Int, _ j: Int, setFlag: @escaping (Bool) -> Void) {
+        setFlag(true)
+        
+        // play sound
+        if tileStates[i][j] == .covered {
+            sound_flagTile()
+        } else if tileStates[i][j] == .flagged {
+            sound_unflagTile()
+        }
+        
+        // perform the long press action immediately
+        toggleFlagAt(i, j)
+        
+        // Reset the flag after a delay, to ensure taps are not processed
+        // 0.35 was found to be the best delay on the simulator (for long press minimum duration = 0.3)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            setFlag(false)
+        }
+    }
+    
     
     private func check(_ i: Int, _ j: Int, _ action: (Int, Int) -> Void) {
         checkSurroundingHexagons(map: boardMap, i: i, j: j, action: action)
@@ -97,6 +149,7 @@ class GameViewModel: ObservableObject {
         if boardMap[i][j] == -1 {
             // Game Over Logic
             loseCon = true // displays Lose modal
+            sound_gameLost()
             revealAllTiles()
         }
         revealEmptyTiles(i, j)
