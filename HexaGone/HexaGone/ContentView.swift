@@ -5,60 +5,18 @@
 
 import SwiftUI
 
-// Prototype Title Screen. Change & style as needed.
-
-// Homescreen Idea: Scrolling game baord that gets constantly regenerated (like the accidental updating, but intentional this time)
+// Prototype Title Screen for Review.
 
 struct ContentView: View {
     @State var highScore: Double = 0.0
-    //create a score system that takes into account difficulty, time, and number of hints used?
+    // create a score system that takes into account difficulty, time, and number of hints used?
+    // Should this go in ContentView? Do we need another ViewModel to keep track of score and certain cross-game settings?
     
     var body: some View {
         NavigationView {
             ZStack {
                 TitleScreenBackgroundView()
-                VStack {
-                    Text("HexaGone Prototype")
-                        .font(.title)
-                        .padding()
-                    NavigationLink(destination: {GameView(boardConfig: noviceBoard)}) {
-                        ZStack {
-                            Rectangle()
-                                .fill(.black)
-                                .cornerRadius(10)
-                                .frame(width: 200, height: 100)
-                            Text("Novice")
-                                .foregroundColor(.white)
-                                .font(.title)
-                        }
-                    }
-                    NavigationLink(destination: {
-                        GameView(boardConfig: intermediateBoard)
-                    }) {
-                        ZStack {
-                            Rectangle()
-                                .fill(.black)
-                                .cornerRadius(10)
-                                .frame(width: 200, height: 100)
-                            Text("Intermediate")
-                                .foregroundColor(.white)
-                                .font(.title)
-                        }
-                    }
-                    NavigationLink(destination: {
-                        GameView(boardConfig: advancedBoard)
-                    }) {
-                        ZStack {
-                            Rectangle()
-                                .fill(.black)
-                                .cornerRadius(10)
-                                .frame(width: 200, height: 100)
-                            Text("Advanced")
-                                .foregroundColor(.white)
-                                .font(.title)
-                        }
-                    }
-                }
+                TitleScreenView()
             }
         }
     }
