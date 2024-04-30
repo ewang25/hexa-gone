@@ -1,6 +1,10 @@
 # hexa-gone
 CSC452 Project 2.
 
+## Credits
+
+Background Music: [Korobeiniki](https://pixabay.com/music/search/korobeiniki/) (Arranged by Gregor Quendel, Royalty Free)
+
 
 ## Development Notes
 

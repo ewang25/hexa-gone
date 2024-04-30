@@ -58,6 +58,7 @@ struct HexagonShape: Shape {
 }
 
 struct TitleScreenView: View {
+    @EnvironmentObject var data: AppModel
     var body: some View {
         VStack {
             Image("hexagone_graphic")
@@ -78,6 +79,10 @@ struct TitleScreenView: View {
                         
                 }
                 Spacer()
+                Button(action: {data.backgroundMusicON.toggle()}) {
+                    Rectangle()
+                        .frame(width: 25, height: 25)
+                }
                 NavigationLink(destination: {}) {
                     Image(systemName: "gear")
                         .resizable()

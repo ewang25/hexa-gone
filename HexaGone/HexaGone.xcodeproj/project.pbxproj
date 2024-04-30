@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E614B6B2BE15F390025EE81 /* korobeiniki.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E614B6A2BE15F390025EE81 /* korobeiniki.mp3 */; };
 		2E6378D32BDA1478008783AF /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6378D22BDA1478008783AF /* mine.png */; };
 		2E6378D52BDA1C40008783AF /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6378D42BDA1C40008783AF /* flag.png */; };
 		2E6CF8B12BDB18EC00BF0053 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6CF8B02BDB18EC00BF0053 /* GameViewModel.swift */; };
+		2E710D522BE160D1004D0429 /* BGMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E710D512BE160D1004D0429 /* BGMViewModel.swift */; };
 		2E800B3A2BD820FF003A7643 /* HexaGoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E800B392BD820FF003A7643 /* HexaGoneApp.swift */; };
 		2E800B3C2BD820FF003A7643 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E800B3B2BD820FF003A7643 /* ContentView.swift */; };
 		2E800B3E2BD82100003A7643 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E800B3D2BD82100003A7643 /* Assets.xcassets */; };
@@ -36,9 +38,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E614B6A2BE15F390025EE81 /* korobeiniki.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = korobeiniki.mp3; sourceTree = "<group>"; };
 		2E6378D22BDA1478008783AF /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mine.png; sourceTree = "<group>"; };
 		2E6378D42BDA1C40008783AF /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
 		2E6CF8B02BDB18EC00BF0053 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		2E710D512BE160D1004D0429 /* BGMViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGMViewModel.swift; sourceTree = "<group>"; };
 		2E800B362BD820FF003A7643 /* HexaGone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HexaGone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E800B392BD820FF003A7643 /* HexaGoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexaGoneApp.swift; sourceTree = "<group>"; };
 		2E800B3B2BD820FF003A7643 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +80,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E614B682BE15F0D0025EE81 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		2E614B692BE15F230025EE81 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				2E614B6A2BE15F390025EE81 /* korobeiniki.mp3 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
 		2E800B2D2BD820FF003A7643 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +116,7 @@
 			children = (
 				2E800B3D2BD82100003A7643 /* Assets.xcassets */,
 				2E800B4B2BD95B46003A7643 /* Images */,
+				2E614B692BE15F230025EE81 /* Music */,
 				2E800B3F2BD82100003A7643 /* Preview Content */,
 				2E800B392BD820FF003A7643 /* HexaGoneApp.swift */,
 				2E83F7BF2BE15707002E46D8 /* AppModel.swift */,
@@ -109,6 +129,7 @@
 				2ED2F28F2BDC20CB0045F7DB /* TitleScreenBackgroundView.swift */,
 				BB527CD12BD96629001AEDCB /* Data.swift */,
 				2E83F7B92BE09ED3002E46D8 /* SystemAudioTester.swift */,
+				2E710D512BE160D1004D0429 /* BGMViewModel.swift */,
 			);
 			path = HexaGone;
 			sourceTree = "<group>";
@@ -124,6 +145,7 @@
 		2E800B4B2BD95B46003A7643 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E614B682BE15F0D0025EE81 /* Music */,
 				2E6378D42BDA1C40008783AF /* flag.png */,
 				2E83F7BB2BE0A22A002E46D8 /* hexagone_graphic.png */,
 				2E6378D22BDA1478008783AF /* mine.png */,
@@ -202,6 +224,7 @@
 				2E800B762BD95BE6003A7643 /* num_2.png in Resources */,
 				2E800B772BD95BE6003A7643 /* num_4.png in Resources */,
 				2E800B732BD95BE6003A7643 /* tile_2.png in Resources */,
+				2E614B6B2BE15F390025EE81 /* korobeiniki.mp3 in Resources */,
 				2E6378D52BDA1C40008783AF /* flag.png in Resources */,
 				2E800B412BD82100003A7643 /* Preview Assets.xcassets in Resources */,
 				2E800B712BD95BE6003A7643 /* tile_3.png in Resources */,
@@ -227,6 +250,7 @@
 				2E800B3C2BD820FF003A7643 /* ContentView.swift in Sources */,
 				BB527CD22BD96629001AEDCB /* Data.swift in Sources */,
 				2E83F7C02BE15707002E46D8 /* AppModel.swift in Sources */,
+				2E710D522BE160D1004D0429 /* BGMViewModel.swift in Sources */,
 				2E83F7BA2BE09ED3002E46D8 /* SystemAudioTester.swift in Sources */,
 				2E800B4A2BD82C7A003A7643 /* HexBoardView.swift in Sources */,
 				2E800B7D2BD9E7FB003A7643 /* ZoomAndDragView.swift in Sources */,
