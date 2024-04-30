@@ -71,12 +71,19 @@ struct TitleScreenView: View {
             }
             HStack {
                 NavigationLink(destination: {}) {
-                    Image(systemName: "trophy")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 50)
-                        .padding(EdgeInsets(top: 0, leading: 90, bottom: 0, trailing: 0))
-                        
+                    ZStack {
+                        VStack {
+                            Image(systemName: "trophy")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 50)
+                                .padding(10)
+                                .foregroundColor(Color.white)
+                        }
+                    }
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(red: 1.0, green: 0.95, blue: 0.43), Color(red: 0.96, green: 0.65, blue: 0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .cornerRadius(10)
+                    .padding(EdgeInsets(top: 0, leading: 90, bottom: 0, trailing: 0))
                 }
                 Spacer()
                 Button(action: {data.backgroundMusicON.toggle()}) {
@@ -84,12 +91,19 @@ struct TitleScreenView: View {
                         .frame(width: 25, height: 25)
                 }
                 NavigationLink(destination: {}) {
-                    Image(systemName: "gear")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 50)
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 90))
-                        
+                    ZStack {
+                        VStack {
+                            Image(systemName: "gear")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 50)
+                                .padding(10)
+                                .foregroundColor(Color.white)
+                        }
+                    }
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(red: 0.95, green: 0.95, blue: 0.95), Color(red: 0.2, green: 0.2, blue: 0.2)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .cornerRadius(10)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 95))
                 }
             }
         }
