@@ -16,7 +16,7 @@ struct TitleScreenButtonConfig: Identifiable {
 
 var TitleScreenButtonList : [TitleScreenButtonConfig] = [
     TitleScreenButtonConfig(title: "Novice", boardConfig: noviceBoard, gradient: LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .topLeading, endPoint: .bottomTrailing)),
-    TitleScreenButtonConfig(title: "Intermediat", boardConfig: intermediateBoard, gradient: LinearGradient(gradient: Gradient(colors: [.purple, .black]), startPoint: .topLeading, endPoint: .bottomTrailing)),
+    TitleScreenButtonConfig(title: "Intermediate", boardConfig: intermediateBoard, gradient: LinearGradient(gradient: Gradient(colors: [.purple, .black]), startPoint: .topLeading, endPoint: .bottomTrailing)),
     TitleScreenButtonConfig(title: "Advanced", boardConfig: advancedBoard, gradient: LinearGradient(gradient: Gradient(colors: [.red, .black]), startPoint: .topLeading, endPoint: .bottomTrailing))
 ]
 
