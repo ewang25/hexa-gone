@@ -32,6 +32,9 @@ struct SystemAudioTester: View {
     }
 }
 
-#Preview {
-    SystemAudioTester()
+struct SystemAudioTester_Previews: PreviewProvider {
+    static var previews: some View {
+        SystemAudioTester()
+    }
 }
+

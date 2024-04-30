@@ -89,6 +89,8 @@ struct TitleScreenBackgroundHexBoardView: View {
     }
 }
 
-#Preview {
-    TitleScreenBackgroundView()
+struct TitleScreenBackgroundView_Previews: PreviewProvider {
+    static var previews: some View {
+        TitleScreenBackgroundView()
+    }
 }
