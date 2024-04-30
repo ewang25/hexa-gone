@@ -77,7 +77,8 @@ struct GameView: View {
                                 .padding()
                             VStack (spacing: 0) {
                                 Image(systemName: 
-                                        model.hintsLeft > 0 ? "lightbulb.max" : "lightbulb.min.badge.exclamationmark"
+                                        model.hintsLeft > 0 ?
+                                    "lightbulb.fill" : "lightbulb"
                                 )
                                     .font(.title)
                                 Text("\(model.hintsLeft)")
