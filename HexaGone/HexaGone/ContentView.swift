@@ -8,7 +8,7 @@ import SwiftUI
 // Prototype Title Screen for Review.
 
 struct ContentView: View {
-    @State var highScore: Double = 0.0
+    @StateObject var data = AppModel()
     // create a score system that takes into account difficulty, time, and number of hints used?
     // Should this go in ContentView? Do we need another ViewModel to keep track of score and certain cross-game settings?
     
@@ -18,7 +18,7 @@ struct ContentView: View {
                 TitleScreenBackgroundView()
                 TitleScreenView()
             }
-        }
+        }.environmentObject(data)
     }
 }
 

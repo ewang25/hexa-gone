@@ -30,6 +30,7 @@
 		2E83F7BA2BE09ED3002E46D8 /* SystemAudioTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83F7B92BE09ED3002E46D8 /* SystemAudioTester.swift */; };
 		2E83F7BC2BE0A22A002E46D8 /* hexagone_graphic.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E83F7BB2BE0A22A002E46D8 /* hexagone_graphic.png */; };
 		2E83F7BE2BE0A71A002E46D8 /* TitleScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83F7BD2BE0A71A002E46D8 /* TitleScreenView.swift */; };
+		2E83F7C02BE15707002E46D8 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83F7BF2BE15707002E46D8 /* AppModel.swift */; };
 		2ED2F2902BDC20CB0045F7DB /* TitleScreenBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F28F2BDC20CB0045F7DB /* TitleScreenBackgroundView.swift */; };
 		BB527CD22BD96629001AEDCB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB527CD12BD96629001AEDCB /* Data.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		2E83F7B92BE09ED3002E46D8 /* SystemAudioTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioTester.swift; sourceTree = "<group>"; };
 		2E83F7BB2BE0A22A002E46D8 /* hexagone_graphic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hexagone_graphic.png; sourceTree = "<group>"; };
 		2E83F7BD2BE0A71A002E46D8 /* TitleScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreenView.swift; sourceTree = "<group>"; };
+		2E83F7BF2BE15707002E46D8 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		2ED2F28F2BDC20CB0045F7DB /* TitleScreenBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreenBackgroundView.swift; sourceTree = "<group>"; };
 		BB527CD12BD96629001AEDCB /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +99,7 @@
 				2E800B4B2BD95B46003A7643 /* Images */,
 				2E800B3F2BD82100003A7643 /* Preview Content */,
 				2E800B392BD820FF003A7643 /* HexaGoneApp.swift */,
+				2E83F7BF2BE15707002E46D8 /* AppModel.swift */,
 				2E800B3B2BD820FF003A7643 /* ContentView.swift */,
 				2E800B472BD82854003A7643 /* GameView.swift */,
 				2E6CF8B02BDB18EC00BF0053 /* GameViewModel.swift */,
@@ -223,6 +226,7 @@
 			files = (
 				2E800B3C2BD820FF003A7643 /* ContentView.swift in Sources */,
 				BB527CD22BD96629001AEDCB /* Data.swift in Sources */,
+				2E83F7C02BE15707002E46D8 /* AppModel.swift in Sources */,
 				2E83F7BA2BE09ED3002E46D8 /* SystemAudioTester.swift in Sources */,
 				2E800B4A2BD82C7A003A7643 /* HexBoardView.swift in Sources */,
 				2E800B7D2BD9E7FB003A7643 /* ZoomAndDragView.swift in Sources */,
