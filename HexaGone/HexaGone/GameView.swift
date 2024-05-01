@@ -124,6 +124,7 @@ struct GameView: View {
             }
         }
         .onAppear{
+            sound_uncoverTile()
             model.loopCheckWinCon()
             DispatchQueue.global().async {
                 while (model.timerActive) {

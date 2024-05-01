@@ -58,54 +58,58 @@ struct HexagonShape: Shape {
 }
 
 struct TitleScreenView: View {
-    @EnvironmentObject var data: AppModel
+    @State var showSettingsModal = false
+    
     var body: some View {
-        VStack {
-            Image("hexagone_graphic")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 250)
-                .padding()
-            ForEach(TitleScreenButtonList) { button in
-                TitleScreenButton(data: button)
-            }
-            HStack {
-                NavigationLink(destination: {}) {
-                    ZStack {
-                        VStack {
-                            Image(systemName: "trophy")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 50)
-                                .padding(10)
-                                .foregroundColor(Color.white)
+        ZStack {
+            VStack {
+                Image("hexagone_graphic")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250)
+                    .padding()
+                ForEach(TitleScreenButtonList) { button in
+                    TitleScreenButton(data: button)
+                }
+                HStack {
+                    NavigationLink(destination: {}) {
+                        ZStack {
+                            VStack {
+                                Image(systemName: "trophy")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .padding(10)
+                                    .foregroundColor(Color.white)
+                            }
                         }
+                        .background(LinearGradient(gradient: Gradient(colors: [Color(red: 1.0, green: 0.95, blue: 0.43), Color(red: 0.96, green: 0.65, blue: 0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .cornerRadius(10)
+                        .padding(EdgeInsets(top: 0, leading: 90, bottom: 0, trailing: 0))
                     }
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(red: 1.0, green: 0.95, blue: 0.43), Color(red: 0.96, green: 0.65, blue: 0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .cornerRadius(10)
-                    .padding(EdgeInsets(top: 0, leading: 90, bottom: 0, trailing: 0))
-                }
-                Spacer()
-                Button(action: {data.backgroundMusicON.toggle()}) {
-                    Rectangle()
-                        .frame(width: 25, height: 25)
-                }
-                NavigationLink(destination: {}) {
-                    ZStack {
-                        VStack {
-                            Image(systemName: "gear")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 50)
-                                .padding(10)
-                                .foregroundColor(Color.white)
+                    Spacer()
+                    Button(action: {
+                        if !showSettingsModal {
+                            showSettingsModal = true
                         }
+                    }) {
+                        ZStack {
+                            VStack {
+                                Image(systemName: "gear")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .padding(10)
+                                    .foregroundColor(Color.white)
+                            }
+                        }
+                        .background(LinearGradient(gradient: Gradient(colors: [Color(red: 0.95, green: 0.95, blue: 0.95), Color(red: 0.2, green: 0.2, blue: 0.2)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .cornerRadius(10)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 95))
                     }
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(red: 0.95, green: 0.95, blue: 0.95), Color(red: 0.2, green: 0.2, blue: 0.2)]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .cornerRadius(10)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 95))
                 }
             }
+            SettingsView(show: $showSettingsModal)
         }
     }
 }

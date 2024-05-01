@@ -9,7 +9,7 @@ import Foundation
 class AppModel: ObservableObject {
     
     // Music & Sound Settings
-    @Published var bgm = BGMViewModel()
+    var bgm = BGMViewModel()
     @Published var backgroundMusicON = true {
         didSet {
             bgm.backgroundMusic = backgroundMusicON

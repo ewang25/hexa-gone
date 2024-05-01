@@ -83,9 +83,7 @@ class GameViewModel: ObservableObject {
             sound_uncoverTileWithZero()
         } else if tileStates[i][j] == .covered {
             // Play sound
-            if firstMove {
-                
-            } else if hintMode {
+            if hintMode {
                 sound_useHint()
             } else if boardMap[i][j] == -1 {
                 sound_mineClicked()
