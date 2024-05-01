@@ -7,6 +7,36 @@ import SwiftUI
 
 // TODO: Make it so that (1) onAppear, the game board is centered, (2) include a min and max scale setting (3) include boundaries for the offset settings. This will make sure that the user will not accidentally drag the gameboard off-screen.
 
+struct winModal: View {
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(.green)
+                .opacity(0.5)
+            VStack {
+                Text("You Win!")
+                Spacer()
+                // Score here
+            }
+        }.frame(width: 200, height: 300)
+    }
+}
+
+struct loseModal: View {
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(.red)
+                .opacity(0.5)
+            VStack {
+                Text("You Lost!")
+                Spacer()
+                // Score here
+            }
+        }.frame(width: 200, height: 300)
+    }
+}
+
 struct GameView: View {
     @Environment(\.presentationMode) var presentationMode
     
@@ -89,18 +119,9 @@ struct GameView: View {
             }
             // win or lose (modal) view on top
             if (model.winCon) {
-                VStack {
-                    Text("Win!")
-                    Text("Score: \(model.elapsedTime)")
-                }
-                .padding(20)
-                .background(Color.blue)
+                winModal()
             } else if (model.loseCon) {
-                VStack {
-                    Text("Loss")
-                }
-                .padding(20)
-                .background(Color.red)
+                loseModal()
             } else {
                 Text("you lost the game")
                     .opacity(0) //invisible text if neither win nor loss
