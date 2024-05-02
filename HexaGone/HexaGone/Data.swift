@@ -11,6 +11,7 @@ let HEXRATIO: CGFloat = sqrt(3.0)/2
 // for masks, every second row (%2==1) is shifted towards the right.
 
 struct BoardConfig {
+    var id = UUID()
     var rows: Int
     var cols: Int
     var mineCount: Int
