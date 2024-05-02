@@ -49,8 +49,9 @@ struct loseModal: View {
                 .opacity(0.5)
             VStack {
                 Text("You Lost!")
-                Spacer()
-                // Score here
+                    .font(.system(size: 35))
+                    .bold()
+                    .foregroundColor(Color.white)
             }
         }.frame(width: 200, height: 300)
     }
