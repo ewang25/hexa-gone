@@ -170,7 +170,7 @@ struct GameView: View {
             DispatchQueue.global().async {
                 while (model.timerActive) {
                     // check if board is a novice board//if (board == noviceBoard) {
-                        score = Int(Double(100000 / (model.elapsedTime + 10 * (3 - model.hintsLeft))))
+                        score = Int(Double(100000 / (model.elapsedTime + 10 * (4 - model.hintsLeft))))
                     //}
                     // have different score systems for different board
                     if (model.loseCon || model.winCon) {
