@@ -9,6 +9,8 @@ import SwiftUI
 
 struct winModal: View {
     var score: Int
+    var hintsLeft: Int
+    var flagsUsed: Int
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -23,6 +25,14 @@ struct winModal: View {
                 Spacer()
                 Text("Score: \(Int(score))")
                     .font(.system(size: 25))
+                    .bold()
+                    .foregroundColor(Color.white)
+                Text("Hints Left: \(Int(hintsLeft))")
+                    .font(.system(size: 20))
+                    .bold()
+                    .foregroundColor(Color.white)
+                Text("Flags Used: \(Int(flagsUsed))")
+                    .font(.system(size: 20))
                     .bold()
                     .foregroundColor(Color.white)
                 Spacer()
@@ -129,7 +139,7 @@ struct GameView: View {
             }
             // win or lose (modal) view on top
             if (model.winCon) {
-                winModal(score: score)
+                winModal(score: score, hintsLeft: model.hintsLeft, flagsUsed: model.flagCount)
             } else if (model.loseCon) {
                 loseModal()
             } else {
