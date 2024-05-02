@@ -59,6 +59,7 @@ struct HexagonShape: Shape {
 
 struct TitleScreenView: View {
     @State var showSettingsModal = false
+    @EnvironmentObject var data: AppModel
     
     var body: some View {
         ZStack {
@@ -72,7 +73,7 @@ struct TitleScreenView: View {
                     TitleScreenButton(data: button)
                 }
                 HStack {
-                    NavigationLink(destination: {}) {
+                    NavigationLink(destination: {Text("Highscore: \(data.highscore)")}) {
                         ZStack {
                             VStack {
                                 Image(systemName: "trophy")

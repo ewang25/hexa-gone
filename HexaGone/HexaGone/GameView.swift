@@ -171,6 +171,9 @@ struct GameView: View {
                 while (model.timerActive) {
                     score = Int(Double(100000 / (model.elapsedTime + 10 * (3 - model.hintsLeft))))
                     if (model.loseCon || model.winCon) {
+                        if (score > data.highscore && model.winCon) {
+                            data.highscore = score
+                        }
                         DispatchQueue.main.async {
                             model.timerActive = false
                         }
