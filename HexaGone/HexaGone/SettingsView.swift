@@ -40,7 +40,7 @@ struct SettingsView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 25)
                         .foregroundColor(.white)
-                        .opacity(0.75)
+                        .opacity(0.9)
                     VStack(spacing: 10) {
                         Text("Settings")
                             .font(.title)
