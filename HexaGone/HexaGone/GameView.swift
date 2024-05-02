@@ -169,11 +169,15 @@ struct GameView: View {
             model.loopCheckWinCon()
             DispatchQueue.global().async {
                 while (model.timerActive) {
-                    score = Int(Double(100000 / (model.elapsedTime + 10 * (3 - model.hintsLeft))))
+                    // check if board is a novice board//if (board == noviceBoard) {
+                        score = Int(Double(100000 / (model.elapsedTime + 10 * (3 - model.hintsLeft))))
+                    //}
+                    // have different score systems for different board
                     if (model.loseCon || model.winCon) {
-                        if (score > data.highscore && model.winCon) {
-                            data.highscore = score
+                        if (score > data.noviceHighscore && model.winCon) {
+                            data.noviceHighscore = score
                         }
+                        // have different if statements updating different highschores depending on boardConfig
                         DispatchQueue.main.async {
                             model.timerActive = false
                         }

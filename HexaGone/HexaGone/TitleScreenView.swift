@@ -73,7 +73,13 @@ struct TitleScreenView: View {
                     TitleScreenButton(data: button)
                 }
                 HStack {
-                    NavigationLink(destination: {Text("Highscore: \(data.highscore)")}) {
+                    NavigationLink(destination: {
+                        VStack {
+                            Text("Novice Highscore: \(data.noviceHighscore)")
+                            Text("Intermediate Highscore: \(data.intermediateHighscore)")
+                            Text("Advanced Highscore: \(data.advancedHighscore)")
+                        }
+                    }) {
                         ZStack {
                             VStack {
                                 Image(systemName: "trophy")
