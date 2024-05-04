@@ -59,6 +59,7 @@ struct HexagonShape: Shape {
 
 struct TitleScreenView: View {
     @State var showSettingsModal = false
+    @State var showLeaderboardModal = false
     @EnvironmentObject var data: AppModel
     
     var body: some View {
@@ -73,12 +74,8 @@ struct TitleScreenView: View {
                     TitleScreenButton(data: button)
                 }
                 HStack {
-                    NavigationLink(destination: {
-                        VStack {
-                            Text("Novice Highscore: \(data.noviceHighscore)")
-                            Text("Intermediate Highscore: \(data.intermediateHighscore)")
-                            Text("Advanced Highscore: \(data.advancedHighscore)")
-                        }
+                    Button(action: {
+                        showLeaderboardModal = true
                     }) {
                         ZStack {
                             VStack {
@@ -117,13 +114,14 @@ struct TitleScreenView: View {
                 }
             }
             SettingsView(show: $showSettingsModal)
+            LeaderboardView(show: $showLeaderboardModal)
         }
     }
 }
 
-struct TitleScreenView_Previews: PreviewProvider {
-    static var previews: some View {
-        TitleScreenView()
-    }
-}
+//struct TitleScreenView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TitleScreenView()
+//    }
+//}
 
