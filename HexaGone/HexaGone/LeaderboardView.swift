@@ -2,8 +2,6 @@
 //  LeaderboardView.swift
 //  HexaGone
 //
-//  Created by Avery on 5/4/24.
-//
 
 import SwiftUI
 
