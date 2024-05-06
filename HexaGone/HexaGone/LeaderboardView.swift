@@ -18,12 +18,15 @@ struct LeaderboardView: View {
                     RoundedRectangle(cornerRadius: 25)
                         .foregroundColor(.white)
                         .opacity(0.9)
-                    VStack(spacing: 10) {
-                        Text("Highscores:")
-                            .font(.title)
+                    VStack(spacing: 70) {
+                        Text("High Scores")
+                            .font(Font.system(size: 42).weight(.bold))
                         Text("Novice: \(data.noviceHighscore)")
+                            .font(Font.system(size: 30))
                         Text("Intermediate: \(data.intermediateHighscore)")
+                            .font(Font.system(size: 30))
                         Text("Advanced: \(data.advancedHighscore)")
+                            .font(Font.system(size: 30))
                     }
                     VStack {
                         HStack {

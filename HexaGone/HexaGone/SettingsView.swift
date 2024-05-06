@@ -43,15 +43,21 @@ struct SettingsView: View {
                     RoundedRectangle(cornerRadius: 25)
                         .foregroundColor(.white)
                         .opacity(0.9)
-                    VStack(spacing: 10) {
+                    VStack(spacing: 70) {
                         Text("Settings")
-                            .font(.title)
+                            .font(Font.system(size: 42).weight(.bold))
                         HStack {
+                            Spacer()
                             Text("Background Music")
+                                .font(Font.system(size: 30))
+                            Spacer()
                             settingsToggle(flag: $data.backgroundMusicON)
                         }
                         HStack {
-                            Text("SoundEffects")
+                            Spacer()
+                            Text("Sound Effects")
+                                .font(Font.system(size: 30))
+                            Spacer()
                             settingsToggle(flag: $data.soundEffectsON)
                         }
                     }
