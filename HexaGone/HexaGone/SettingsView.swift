@@ -37,47 +37,41 @@ struct SettingsView: View {
     
     var body: some View {
         if show {
-            ZStack {
+            ZStack(alignment: .top) {
                 Color.black.opacity(0.4).ignoresSafeArea()
-                ZStack {
+                ZStack(alignment: .top) {
                     RoundedRectangle(cornerRadius: 25)
                         .foregroundColor(.white)
                         .opacity(0.9)
-                    VStack(spacing: 70) {
+                    VStack(spacing: 30) {
                         Text("Settings")
                             .font(Font.system(size: 42).weight(.bold))
                         HStack {
                             Spacer()
                             Text("Background Music")
-                                .font(Font.system(size: 30))
                             Spacer()
                             settingsToggle(flag: $data.backgroundMusicON)
                         }
                         HStack {
                             Spacer()
                             Text("Sound Effects")
-                                .font(Font.system(size: 30))
                             Spacer()
                             settingsToggle(flag: $data.soundEffectsON)
                         }
                         HStack {
                             Spacer()
                             Text("Allow Hints")
-                                .font(Font.system(size: 30))
                             Spacer()
                             settingsToggle(flag: $data.hintsON)
                         }
-                    }
-                    VStack {
-                        HStack {
-                            Button(action: {
-                                show = false
-                            }) {
-                                Image(systemName: "xmark.circle")
-                                    .font(.title)
-                                    .padding(10)
-                            }
-                            Spacer()
+                    }.font(Font.system(size: 25)).padding(.top, 50)
+                    HStack {
+                        Button(action: {
+                            show = false
+                        }) {
+                            Image(systemName: "xmark.circle")
+                                .font(.title)
+                                .padding(10)
                         }
                         Spacer()
                     }
