@@ -5,6 +5,7 @@
 
 import SwiftUI
 
+//Display leaderboard
 struct LeaderboardView: View {
     @EnvironmentObject var data: AppModel
     @Binding var show: Bool

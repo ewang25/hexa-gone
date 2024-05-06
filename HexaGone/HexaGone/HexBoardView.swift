@@ -29,7 +29,7 @@ struct SimpleHexagonView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
-            
+            //Setting the states of each cell
             if (state == .uncovered) {
                 if (isMine) {
                     Image("mine")
