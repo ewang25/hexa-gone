@@ -71,7 +71,7 @@ struct TitleScreenView: View {
                     .scaledToFit()
                     .frame(width: 250)
                     .padding()
-                ForEach(TitleScreenButtonList) {button in
+                ForEach(TitleScreenButtonList) { button in
                     TitleScreenButton(config: button)
                 }
                 HStack {
@@ -119,10 +119,3 @@ struct TitleScreenView: View {
         }
     }
 }
-
-//struct TitleScreenView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TitleScreenView()
-//    }
-//}
-
