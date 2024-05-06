@@ -42,9 +42,9 @@ struct winModal: View {
                     model.factoryReset()
                 }) {
                     Text("Play Again")
-                        .font(.system(size:30))
+                        .font(.system(size:25))
                         .bold()
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+                        .padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
                         .background(LinearGradient(gradient: Gradient(colors: [Color(red: 0.95, green: 0.95, blue: 0.95), Color(red: 0.2, green: 0.2, blue: 0.2)]), startPoint: .topLeading, endPoint: .bottomTrailing))
                         .cornerRadius(10)
                         .foregroundColor(Color.white)
@@ -55,13 +55,12 @@ struct winModal: View {
     }
 }
 
-struct GameView_Previews: PreviewProvider {
+struct winModel_Previews: PreviewProvider {
     @StateObject static var data = AppModel()
     static var previews: some View {
         winModal(model: GameViewModel(boardConfig: beginnerBoardProto), score: 0, elapsedTime: 0, hintsLeft: 0)
     }
 }
-
 
 struct loseModal: View {
     @StateObject var model: GameViewModel
@@ -71,24 +70,34 @@ struct loseModal: View {
                 .foregroundColor(.red)
                 .opacity(0.5)
             VStack {
+                Spacer()
                 Text("You Lost!")
                     .font(.system(size: 35))
                     .bold()
                     .foregroundColor(Color.white)
+                Spacer()
                 //reset button
                 Button(action: {
                     model.factoryReset()
                 }) {
                     Text("Try Again")
-                        .font(.system(size:30))
+                        .font(.system(size:25))
                         .bold()
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+                        .padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
                         .background(LinearGradient(gradient: Gradient(colors: [Color(red: 0.95, green: 0.95, blue: 0.95), Color(red: 0.2, green: 0.2, blue: 0.2)]), startPoint: .topLeading, endPoint: .bottomTrailing))
                         .cornerRadius(10)
                         .foregroundColor(Color.white)
                 }
+                Spacer()
             }
         }.frame(width: 200, height: 300)
+    }
+}
+
+struct loseModel_Previews: PreviewProvider {
+    @StateObject static var data = AppModel()
+    static var previews: some View {
+        loseModal(model: GameViewModel(boardConfig: beginnerBoardProto))
     }
 }
 
@@ -318,9 +327,9 @@ struct TimerView : View {
     }
 }
 
-//struct GameView_Previews: PreviewProvider {
-//    @StateObject static var data = AppModel()
-//    static var previews: some View {
-//        GameView(boardConfig: beginnerBoardProto).environmentObject(data)
-//    }
-//}
+struct GameView_Previews: PreviewProvider {
+    @StateObject static var data = AppModel()
+    static var previews: some View {
+        GameView(boardConfig: beginnerBoardProto).environmentObject(data)
+    }
+}
