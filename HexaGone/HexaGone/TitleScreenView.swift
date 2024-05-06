@@ -57,6 +57,7 @@ struct HexagonShape: Shape {
     }
 }
 
+//The TitleScreenView consists of the image and all the buttons
 struct TitleScreenView: View {
     @State var showSettingsModal = false
     @State var showLeaderboardModal = false

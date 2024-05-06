@@ -5,6 +5,7 @@
 
 import SwiftUI
 
+//Structure for an on-off button
 struct settingsToggle: View {
     @Binding var flag: Bool
     
@@ -28,6 +29,7 @@ struct settingsToggle: View {
     }
 }
 
+//Displaying settings
 struct SettingsView: View {
     @EnvironmentObject var data: AppModel
     @Binding var show: Bool

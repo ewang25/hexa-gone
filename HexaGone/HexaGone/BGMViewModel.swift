@@ -46,12 +46,12 @@ class BGMViewModel: ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
-    //method
+    //method to pause the music when app is quitted
     @objc func appWillResignActive() {
         audioPlayer?.pause()
     }
 
-    //method
+    //method to play music when app opened
     @objc func appDidBecomeActive() {
         if backgroundMusic {
             audioPlayer?.play()
