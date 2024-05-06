@@ -10,19 +10,24 @@ import AVKit
 class BGMViewModel: ObservableObject {
     var audioPlayer: AVAudioPlayer?
 
+    // Variable for whether music is playing
     @Published var backgroundMusic: Bool = true {
         didSet {
             updateMusicPlayback()
         }
     }
 
+    // Initializer
     init() {
         setupAudioPlayer()
         setupNotifications()
     }
 
+    // Sets up Audio Player
     func setupAudioPlayer() {
+        // Retrieve Music
         guard let url = Bundle.main.url(forResource: "korobeiniki", withExtension: "mp3") else { return }
+        // Create Audio Player, with a catch in case of an error
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.numberOfLoops = -1 // Loop indefinitely
@@ -41,16 +46,19 @@ class BGMViewModel: ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
+    //method
     @objc func appWillResignActive() {
         audioPlayer?.pause()
     }
 
+    //method
     @objc func appDidBecomeActive() {
         if backgroundMusic {
             audioPlayer?.play()
         }
     }
 
+    //To play or not to play music based on backgroundMusic boolean
     func updateMusicPlayback() {
         if backgroundMusic {
             audioPlayer?.play()
@@ -59,6 +67,7 @@ class BGMViewModel: ObservableObject {
         }
     }
 
+    //Deinitializer
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

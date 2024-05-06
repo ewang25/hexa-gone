@@ -5,12 +5,9 @@
 
 import SwiftUI
 
-// Prototype Title Screen for Review.
-
 struct ContentView: View {
+    // Contains settings and other app-wide environment data, e.g. highscores/leaderboard
     @StateObject var data = AppModel()
-    // create a score system that takes into account difficulty, time, and number of hints used?
-    // Should this go in ContentView? Do we need another ViewModel to keep track of score and certain cross-game settings?
     
     var body: some View {
         NavigationView {
