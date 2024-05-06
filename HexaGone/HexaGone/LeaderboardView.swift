@@ -21,13 +21,19 @@ struct LeaderboardView: View {
                     VStack(spacing: 70) {
                         Text("High Scores")
                             .font(Font.system(size: 42).weight(.bold))
-                        Text("Novice: \(data.noviceHighscore)")
-                            .font(Font.system(size: 30))
-                        Text("Intermediate: \(data.intermediateHighscore)")
-                            .font(Font.system(size: 30))
-                        Text("Advanced: \(data.advancedHighscore)")
-                            .font(Font.system(size: 30))
-                    }
+                        HStack {
+                            Text("Novice: ").foregroundColor(.blue)
+                            Text("\(data.noviceHighscore)")
+                        }
+                        HStack {
+                            Text("Intermediate: ").foregroundColor(.purple)
+                            Text("\(data.intermediateHighscore)")
+                        }
+                        HStack {
+                            Text("Advanced: ").foregroundColor(.red)
+                            Text("\(data.advancedHighscore)")
+                        }
+                    }.font(Font.system(size: 30))
                     VStack {
                         HStack {
                             Button(action: {
