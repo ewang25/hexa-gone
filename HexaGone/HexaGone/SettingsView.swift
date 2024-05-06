@@ -60,6 +60,13 @@ struct SettingsView: View {
                             Spacer()
                             settingsToggle(flag: $data.soundEffectsON)
                         }
+                        HStack {
+                            Spacer()
+                            Text("Allow Hints")
+                                .font(Font.system(size: 30))
+                            Spacer()
+                            settingsToggle(flag: $data.hintsON)
+                        }
                     }
                     VStack {
                         HStack {

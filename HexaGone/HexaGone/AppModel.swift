@@ -16,6 +16,7 @@ class AppModel: ObservableObject {
         }
     }
     @Published var soundEffectsON = true
+    @Published var hintsON = true
     
     // Highscores
     @Published var noviceHighscore = 0
