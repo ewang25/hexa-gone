@@ -39,7 +39,7 @@ class GameViewModel: ObservableObject {
     @Published var winCon = false
     @Published var loseCon = false
     
-    func loopCheckWinCon() {
+    func loopCheckWinCon(action: @escaping () -> Void = {}) {
         // Simulate a condition being monitored
         DispatchQueue.global().async {
             while (!self.winCon) {
@@ -47,12 +47,36 @@ class GameViewModel: ObservableObject {
                     // Activate the navigation
                     DispatchQueue.main.async {
                         self.winCon = true
+                        self.timerActive = false
+                        action()
                         sound_gameWon()
                     }
                 }
                 Thread.sleep(forTimeInterval: 0.5)
             }
         }
+    }
+    
+    // Winning Score
+    func getScore() -> Int {
+        if (self.boardConfig.id == noviceBoard.id) {
+            // score is based on difficulty and  number of hints used
+            let scoreHintsLeftAdditive = Double(10 * (3 - hintsLeft))
+            let scoreAdditive = Double(elapsedTime) + scoreHintsLeftAdditive
+            return Int(100000*2 / (scoreAdditive))
+        }
+        if (self.boardConfig.id == intermediateBoard.id) {
+            let scoreHintsLeftAdditive = Double(10 * (4 - hintsLeft))
+            let scoreAdditive = Double(elapsedTime) + scoreHintsLeftAdditive
+            return Int(500000*2 / (scoreAdditive))
+        }
+        if (self.boardConfig.id == advancedBoard.id) {
+            let scoreHintsLeftAdditive = Double(10 * (4 - hintsLeft))
+            let scoreAdditive = Double(elapsedTime) + scoreHintsLeftAdditive
+            return Int(2500000*2 / (scoreAdditive))
+        }
+        return 0 // boardConfig scoring not implemented (yet)
+        // This scoring function could be moved into boardConfig in the future. Such a design would be more suitable for adding new gameModes/boardConfigs in the future but is not relevant at the moment.
     }
     
     // Condition for hint or not hint mode

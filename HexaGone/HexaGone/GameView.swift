@@ -9,8 +9,8 @@ import SwiftUI
 
 struct winModal: View {
     var score: Int
+    var elapsedTime: Int
     var hintsLeft: Int
-    var flagsUsed: Int
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -27,11 +27,11 @@ struct winModal: View {
                     .font(.system(size: 25))
                     .bold()
                     .foregroundColor(Color.white)
-                Text("Hints Left: \(Int(hintsLeft))")
+                Text("Time Elapsed: \(Int(elapsedTime))")
                     .font(.system(size: 20))
                     .bold()
                     .foregroundColor(Color.white)
-                Text("Flags Used: \(Int(flagsUsed))")
+                Text("Hints Left: \(Int(hintsLeft))")
                     .font(.system(size: 20))
                     .bold()
                     .foregroundColor(Color.white)
@@ -66,7 +66,20 @@ struct GameView: View {
     
     @StateObject var model: GameViewModel
     @EnvironmentObject var data: AppModel
-    @State var score: Int = 0
+    @State var score = 0
+    
+    func updateHighScore() {
+        // have different score systems for different board (different constants to account for difficulty)
+        score = model.getScore()
+        // updating highscores when the game ends (for each board)
+        if (model.boardConfig.id == noviceBoard.id && score > data.noviceHighscore && model.winCon) {
+            data.noviceHighscore = score
+        } else if (model.boardConfig.id == intermediateBoard.id && score > data.intermediateHighscore && model.winCon) {
+            data.intermediateHighscore = score
+        } else if (model.boardConfig.id == advancedBoard.id && score > data.advancedHighscore && model.winCon) {
+            data.advancedHighscore = score
+        }
+    }
     
     @State var scoreHintsLeftAdditive: Double = 0.0
     @State var scoreFlagsUsedAdditive: Double = 0.0
@@ -150,7 +163,7 @@ struct GameView: View {
             }
             // win or lose (modal) view on top
             if (model.winCon) {
-                winModal(score: score, hintsLeft: model.hintsLeft, flagsUsed: model.flagCount)
+                winModal(score: score, elapsedTime: model.elapsedTime, hintsLeft: model.hintsLeft)
             } else if (model.loseCon) {
                 loseModal()
             } else {
@@ -177,48 +190,7 @@ struct GameView: View {
         }
         .onAppear{
             sound_uncoverTile()
-            model.loopCheckWinCon()
-            DispatchQueue.global().async {
-                while (model.timerActive) {
-                    // check what type of board the game is using the boardConfig id variable
-                    if (model.boardConfig.id == noviceBoard.id) {
-                        // score is based on difficulty, number of hints used, and number of flags used
-                        scoreHintsLeftAdditive = Double(10 * (3 - model.hintsLeft))
-                        scoreFlagsUsedAdditive = Double(1 * Double(model.flagCount))
-                        scoreAdditive = Double(Double(model.elapsedTime) + scoreHintsLeftAdditive + scoreFlagsUsedAdditive)
-                        score = Int(100000*2 / (scoreAdditive))
-                    }
-                    if (model.boardConfig.id == intermediateBoard.id) {
-                        scoreHintsLeftAdditive = Double(10 * (4 - model.hintsLeft))
-                        scoreFlagsUsedAdditive = Double(0.5 * Double(model.flagCount))
-                        scoreAdditive = Double(Double(model.elapsedTime) + scoreHintsLeftAdditive + scoreFlagsUsedAdditive)
-                        score = Int(500000*2 / (scoreAdditive))
-                    }
-                    if (model.boardConfig.id == advancedBoard.id) {
-                        scoreHintsLeftAdditive = Double(10 * (4 - model.hintsLeft))
-                        scoreFlagsUsedAdditive = Double(0.25 * Double(model.flagCount))
-                        scoreAdditive = Double(Double(model.elapsedTime) + scoreHintsLeftAdditive + scoreFlagsUsedAdditive)
-                        score = Int(2500000*2 / (scoreAdditive))
-                    }
-                    // have different score systems for different board (different constants to account for difficulty)
-                    if (model.loseCon || model.winCon) {
-                        // updating highscores when the game ends (for each board)
-                        if (model.boardConfig.id == noviceBoard.id && score > data.noviceHighscore && model.winCon) {
-                            data.noviceHighscore = score
-                        }
-                        if (model.boardConfig.id == intermediateBoard.id && score > data.intermediateHighscore && model.winCon) {
-                            data.intermediateHighscore = score
-                        }
-                        if (model.boardConfig.id == advancedBoard.id && score > data.advancedHighscore && model.winCon) {
-                            data.advancedHighscore = score
-                        }
-                        DispatchQueue.main.async {
-                            model.timerActive = false
-                        }
-                    }
-                    Thread.sleep(forTimeInterval: 0.5)
-                }
-            }
+            model.loopCheckWinCon(action: updateHighScore)
         }
     }
 }
