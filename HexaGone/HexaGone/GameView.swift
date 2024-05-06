@@ -179,26 +179,26 @@ struct GameView: View {
                 HStack {
                     // hints button that toggles whether or not you're in hintMode, and updates visually to account for number of hints left.
                     // Also disables button when data.hintsON = false
-                    Button(action: {
-                        if data.hintsON {
+                    if (data.hintsON) {
+                        Button(action: {
                             model.toggleHintMode()
-                        }
-                    }) {
-                        ZStack {
-                            Rectangle()
-                                .fill(
-                                    (model.hintMode && data.hintsON) ? .gray : .white
-                                )
-                                .cornerRadius(10)
-                                .frame(width: 90, height: 90)
-                                .padding()
-                            VStack (spacing: 0) {
-                                Image(systemName:
-                                        (model.hintsLeft > 0 && data.hintsON) ?
-                                      "lightbulb.fill" : "lightbulb"
-                                )
-                                .font(.title)
-                                Text("\(model.hintsLeft)")
+                        }) {
+                            ZStack {
+                                Rectangle()
+                                    .fill(
+                                        model.hintMode ? .gray : .white
+                                    )
+                                    .cornerRadius(10)
+                                    .frame(width: 90, height: 90)
+                                    .padding()
+                                VStack (spacing: 0) {
+                                    Image(systemName:
+                                            model.hintsLeft > 0 ?
+                                          "lightbulb.fill" : "lightbulb"
+                                    )
+                                    .font(.title)
+                                    Text("\(model.hintsLeft)")
+                                }
                             }
                         }
                     }
