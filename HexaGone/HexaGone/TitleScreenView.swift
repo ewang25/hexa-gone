@@ -27,10 +27,10 @@ struct TitleScreenButton: View {
         NavigationLink(destination: { GameView(boardConfig: config.boardConfig) }) {
             ZStack {
                 HexagonShape()
-                    .fill(data.gradient)
+                    .fill(config.gradient)
                     .frame(width: 200, height: 100)
                     .cornerRadius(10)
-                Text(data.title)
+                Text(config.title)
                     .foregroundColor(.white)
                     .font(.title)
             }
@@ -72,7 +72,7 @@ struct TitleScreenView: View {
                     .frame(width: 250)
                     .padding()
                 ForEach(TitleScreenButtonList) { button in
-                    TitleScreenButton(data: button)
+                    TitleScreenButton(config: button)
                 }
                 HStack {
                     Button(action: {
@@ -119,10 +119,3 @@ struct TitleScreenView: View {
         }
     }
 }
-
-//struct TitleScreenView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TitleScreenView()
-//    }
-//}
-
