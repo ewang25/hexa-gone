@@ -21,10 +21,10 @@ var TitleScreenButtonList : [TitleScreenButtonConfig] = [
 ]
 
 struct TitleScreenButton: View {
-    var data: TitleScreenButtonConfig
+    var config: TitleScreenButtonConfig
 
     var body: some View {
-        NavigationLink(destination: { GameView(boardConfig: data.boardConfig) }) {
+        NavigationLink(destination: { GameView(boardConfig: config.boardConfig) }) {
             ZStack {
                 HexagonShape()
                     .fill(data.gradient)
