@@ -31,6 +31,7 @@ class GameViewModel: ObservableObject {
     // Timer
     @Published var timerActive: Bool = true
     @Published var elapsedTime: Int = 0
+    @Published var startTime = Date()
     
     // Flag to track first move to initialize board appropriately
     private var firstMove = true
@@ -82,6 +83,21 @@ class GameViewModel: ObservableObject {
     // Condition for hint or not hint mode
     @Published var hintsLeft: Int
     @Published var hintMode = false
+    
+    func factoryReset() {
+        flagCount = 0
+        resetTileStates()
+        winCon = false
+        loseCon = false
+        
+        timerActive = true
+        elapsedTime = 0
+        startTime = Date()
+        firstMove = true
+        
+        hintsLeft = boardConfig.hintCount
+        hintMode = false
+    }
     
     func toggleHintMode() {
         // Activates hint mode if eligable (logic to determine whether eligable)
@@ -254,7 +270,7 @@ class GameViewModel: ObservableObject {
         }
         return true
     }
-
+    
     // Count flags for auto-reveal
     func countSurroundingFlags(_ i: Int, _ j: Int) -> Int {
         var count = 0
@@ -274,7 +290,7 @@ class GameViewModel: ObservableObject {
                 }
             })
         }
-
+        
     }
     
     func resetTileStates() {

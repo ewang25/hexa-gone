@@ -22,15 +22,15 @@ var TitleScreenButtonList : [TitleScreenButtonConfig] = [
 
 struct TitleScreenButton: View {
     var config: TitleScreenButtonConfig
-
+    
     var body: some View {
         NavigationLink(destination: { GameView(boardConfig: config.boardConfig) }) {
             ZStack {
                 HexagonShape()
-                    .fill(data.gradient)
+                    .fill(config.gradient)
                     .frame(width: 200, height: 100)
                     .cornerRadius(10)
-                Text(data.title)
+                Text(config.title)
                     .foregroundColor(.white)
                     .font(.title)
             }
@@ -71,8 +71,8 @@ struct TitleScreenView: View {
                     .scaledToFit()
                     .frame(width: 250)
                     .padding()
-                ForEach(TitleScreenButtonList) { button in
-                    TitleScreenButton(data: button)
+                ForEach(TitleScreenButtonList) {button in
+                    TitleScreenButton(config: button)
                 }
                 HStack {
                     Button(action: {

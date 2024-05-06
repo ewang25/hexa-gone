@@ -19,14 +19,14 @@ struct ZoomAndDragView<Content: View>: View {
     @State private var offset: CGSize = .zero
     @GestureState private var zoomScale: CGFloat = 1.0
     @GestureState private var dragOffset: CGSize = .zero
-
+    
     // Size of the base frame (this applies to "content")
     public var frameWidth: CGFloat
     public var frameHeight: CGFloat
     
     // Content to be displayed
     public var content: Content
-
+    
     // Configurable properties for zoom and drag limits
     @State private var minZoom: CGFloat = 0.5
     private var maxZoom: CGFloat = 3.0
@@ -34,7 +34,7 @@ struct ZoomAndDragView<Content: View>: View {
     // Screen Height and Width for limitDrag method
     @State private var screenWidth: CGFloat = 0.0
     @State private var screenHeight: CGFloat = 0.0
-
+    
     private var zoomAndDrag: some Gesture {
         SimultaneousGesture(
             MagnificationGesture()
@@ -56,14 +56,14 @@ struct ZoomAndDragView<Content: View>: View {
                 }
         )
     }
-
+    
     private func limitDrag(value: CGSize, scale: CGFloat) -> CGSize {
         let maxX = max(frameWidth * scale - screenWidth - 2 * hexSize * scale, 0) / 2
         let maxY = max(frameHeight * scale - screenHeight - 2 * hexSize * HEXRATIO * scale, 0) / 2
         return CGSize(width: min(max(value.width, -maxX), maxX),
                       height: min(max(value.height, -maxY), maxY))
     }
-
+    
     var body: some View {
         ZStack {
             Color.black

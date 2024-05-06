@@ -59,19 +59,19 @@ struct HexagonView: View {
     @State private var longPressTriggered = false
     
     var tapAndLongPressGesture: some Gesture {
-            let longPress = LongPressGesture(minimumDuration: 0.3)
-                .onEnded { _ in
-                    handleLongPress({ longPressTriggered = $0 })
+        let longPress = LongPressGesture(minimumDuration: 0.3)
+            .onEnded { _ in
+                handleLongPress({ longPressTriggered = $0 })
+            }
+        let tap = TapGesture()
+            .onEnded {
+                if !longPressTriggered {
+                    handleTap()
                 }
-            let tap = TapGesture()
-                .onEnded {
-                    if !longPressTriggered {
-                        handleTap()
-                    }
-                }
-
-            return SimultaneousGesture(tap, longPress)
-        }
+            }
+        
+        return SimultaneousGesture(tap, longPress)
+    }
     
     var body: some View {
         SimpleHexagonView(state: $state, isMine: isMine, hintNum: hintNum).gesture(tapAndLongPressGesture)
@@ -84,7 +84,7 @@ struct HexBoardView: View {
     // constants for scaling/display calculations
     let hexHeight = HEXRATIO * hexSize
     let hexWidth = hexSize
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<model.boardConfig.rows, id: \.self) { i in

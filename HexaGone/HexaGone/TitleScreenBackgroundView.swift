@@ -12,11 +12,11 @@ struct TitleScreenBackgroundView: View {
     // Size of the base frame (this applies to "content")
     public var frameWidth: CGFloat = titleScreenBackgroundBoard.boardWidth()
     public var frameHeight: CGFloat = titleScreenBackgroundBoard.boardHeight()
-
+    
     @State private var offset: CGSize = .zero
     @State private var timer: AnyCancellable? = nil
     @State private var flipflop = false
-
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
@@ -36,19 +36,19 @@ struct TitleScreenBackgroundView: View {
                     offset = CGSize(width: 90, height: 90)
                 }
                 self.timer = Timer.publish(every: 5, on: .main, in: .common)
-                      .autoconnect()
-                      .sink { _ in
-                          flipflop.toggle()
-                          if (flipflop) {
-                              withAnimation(Animation.easeInOut(duration: 5)) {
-                                  offset = CGSize(width: -90, height: -90)
-                              }
-                          } else {
-                              withAnimation(Animation.easeInOut(duration: 5)) {
-                                  offset = CGSize(width: 90, height: 90)
-                              }
-                          }
-                      }
+                    .autoconnect()
+                    .sink { _ in
+                        flipflop.toggle()
+                        if (flipflop) {
+                            withAnimation(Animation.easeInOut(duration: 5)) {
+                                offset = CGSize(width: -90, height: -90)
+                            }
+                        } else {
+                            withAnimation(Animation.easeInOut(duration: 5)) {
+                                offset = CGSize(width: 90, height: 90)
+                            }
+                        }
+                    }
             }
         }
     }
@@ -64,7 +64,7 @@ struct TitleScreenBackgroundHexBoardView: View {
     let hexWidth = hexSize
     
     @Binding var flipflop: Bool
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<model.boardConfig.rows, id: \.self) { i in
